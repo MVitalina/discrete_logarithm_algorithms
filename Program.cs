@@ -23,6 +23,9 @@ namespace discrete_logarithm_algorithms
 
             /*MatchingAlgorithm matchingAlgorithm = new MatchingAlgorithm();
             Console.WriteLine(matchingAlgorithm.doAlgo(17, 3, 13) ); */
+            
+            PohligHellmanAlgorithm pohligHellmanAlgorithm = new PohligHellmanAlgorithm();
+            Console.WriteLine(pohligHellmanAlgorithm.doAlgo(37, 2, 28) ); 
         }
 
     }

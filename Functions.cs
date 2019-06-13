@@ -22,6 +22,8 @@ namespace discrete_logarithm_algorithms
 
         public static BigInteger pow(BigInteger number, BigInteger power)
         {
+            if (power == 0)
+                return 1;
             BigInteger res = number;
             for (BigInteger i = 1; i < power; i++)
                 res *= number;
@@ -29,10 +31,10 @@ namespace discrete_logarithm_algorithms
         }
 
         //Дільники (q) числа (number) і їх кількість (alpha)
-        public static Dictionary<long, int> q_alpha(BigInteger number) //not BigInteger
+        public static Dictionary<int, int> q_alpha(BigInteger number)
         {
-            Dictionary<BigInteger, int> q_alpha = new Dictionary<BigInteger, int>();
-            for (BigInteger i = 2; i <= number / 2; i++)
+            Dictionary<int, int> q_alpha = new Dictionary<int, int>();
+            for (int i = 2; i <= number / 2; i++)
             {
                 if (number % i == 0)
                 {
@@ -46,5 +48,23 @@ namespace discrete_logarithm_algorithms
             }
             return q_alpha;
         }
+
+        /*public PohligHellmanAlgorithm.StructQAlX Set_q_alpha(out List< PohligHellmanAlgorithm.StructQAlX > q_al_List, BigInteger number)
+        {
+            for (BigInteger q = 2; q <= number / 2; q++) // can be less? (num/2) 
+            {
+                if (number % q == 0)
+                {
+                    number /= q;
+                    if (q_al_List.Contains(st => st.q == q)) {
+                        PohligHellmanAlgorithm.StructQAlX struc = q_al_List.Find(st => st.q == q);
+                        struc.alpha++;
+                    } else {
+                        q_al_List.Add(new PohligHellmanAlgorithm.StructQAlX(q, 1));
+                    }
+                    q--;
+                }
+            }
+        }*/
     }
 }
