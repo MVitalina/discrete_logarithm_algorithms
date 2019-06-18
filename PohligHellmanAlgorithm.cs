@@ -29,41 +29,82 @@ namespace discrete_logarithm_algorithms
                 }
             }
             //3 system х
-            Dictionary<BigInteger, BigInteger> q_x;
+            Dictionary<BigInteger, BigInteger> q_x = new Dictionary<BigInteger, BigInteger>();
             for (int q_index = 0; q_index < q_alpha.Count; q_index++)
             {
                 q = q_alpha.ElementAt(q_index).Key;
-                int [] x = new int [q_alpha[q]];
-                int x;
-                BigInteger temp; // b^ = .. = in r
+                int[] xi = new int[q_alpha[q]];
+                BigInteger temp; // b^power OR b*a^power
+
                 for (int al = 0; al < q_alpha[q]; al++)
                 {
                     if (al == 0)
                     {
                         temp = Functions.pow(b, (p - 1) / q) % p;
+                        //System.Diagnostics.Debug.WriteLine("temp = " + temp);
                         for (int j = 0; j < q; j++) 
                         {
                             if (r[q_index][j] == temp) //search in table r
                             {
-                                x[al] = j; // x0 +
-                                System.Diagnostics.Debug.WriteLine(x[al]);
+                                xi[al] = j; //x0 +
                             }
                         }
                     }
-                    else
+                    else 
                     {
-                        BigInteger power = x[0];
+                        int power = xi[0];
                         for (int i = 1; i < al; i++) {
-                            power += x[i] * Functions.pow(q, i);
+                            power += xi[i] * (int)Functions.pow(q, i);
                         }
-                        temp = Functions.pow(b*Functions.pow(a, -power), (p-1)/(Functions.pow(q, al))) % p;
-                        //x1 x2.....x al-1
+
+                        if (power == 1)
+                        {
+                            temp = b / a;
+                        }
+                        else
+                        {
+                            temp = b * Functions.pow(a, -power);//a^(-x0-x1..) TODO power < 0
+                        }
+
+                        //temp = b * temp; //b*a
+                        temp = Functions.pow(temp, (p - 1) / (Functions.pow(q, al + 1))); //(b*a)^(...)
+                        temp = temp % p; //(mod p)
+                        //System.Diagnostics.Debug.WriteLine("temp = " + temp);
+                        for (int j = 0; j < q; j++)
+                        {
+                            if (r[q_index][j] == temp) //search in table r
+                            {
+                                xi[al] = j; //xi + 
+                            }
+                        }
                     }
                     //x += x[al];
                 }
+                BigInteger x = xi[0];
+                for (int i = 1; i < xi.Length; i++)
+                {
+                    x += xi[i] * Functions.pow(q, i);
+                }  
+
+                x = x % (Functions.pow(q, q_alpha[q]));
+                q_x.Add(q, x);
+                System.Diagnostics.Debug.WriteLine("x = " + x);
             }
             //4 solve system х by Chinese remainder Th
-            //here
+            //Harner algo
+
+            /*for (int i = 0; i < k; ++i)
+            {
+                x[i] = a[i];
+                for (int j = 0; j < i; ++j)
+                {
+                    x[i] = r[j][i] * (x[i] - x[j]);
+
+                    x[i] = x[i] % p[i];
+                    if (x[i] < 0) x[i] += p[i];
+                }
+            }*/
+
             return -1;
         }
     }

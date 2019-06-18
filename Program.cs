@@ -25,7 +25,7 @@ namespace discrete_logarithm_algorithms
             Console.WriteLine(matchingAlgorithm.doAlgo(17, 3, 13) ); */
             
             PohligHellmanAlgorithm pohligHellmanAlgorithm = new PohligHellmanAlgorithm();
-            Console.WriteLine(pohligHellmanAlgorithm.doAlgo(37, 2, 28) ); 
+            Console.WriteLine("result of Pol-Hel = " + pohligHellmanAlgorithm.doAlgo(37, 2, 28) ); 
         }
 
     }

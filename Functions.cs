@@ -22,6 +22,8 @@ namespace discrete_logarithm_algorithms
 
         public static BigInteger pow(BigInteger number, BigInteger power)
         {
+            if (power == -1)
+                return 1 / number;
             if (power == 0)
                 return 1;
             BigInteger res = number;
@@ -34,7 +36,7 @@ namespace discrete_logarithm_algorithms
         public static Dictionary<int, int> q_alpha(BigInteger number)
         {
             Dictionary<int, int> q_alpha = new Dictionary<int, int>();
-            for (int i = 2; i <= number / 2; i++)
+            for (int i = 2; i <= number; i++)
             {
                 if (number % i == 0)
                 {
