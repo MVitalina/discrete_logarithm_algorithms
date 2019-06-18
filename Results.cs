@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace discrete_logarithm_algorithms
 {
-    public partial class Form1 : Form
+    public partial class Results : Form
     {
-        public Form1()
+        public Results()
         {
             InitializeComponent();
         }

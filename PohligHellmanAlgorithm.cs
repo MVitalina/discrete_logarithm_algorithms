@@ -88,7 +88,7 @@ namespace discrete_logarithm_algorithms
 
                 x = x % (Functions.pow(q, q_alpha[q]));
                 q_x.Add(q, x);
-                System.Diagnostics.Debug.WriteLine("x = " + x);
+                //System.Diagnostics.Debug.WriteLine("x = " + x);
             }
             //4 solve system х by Chinese remainder Th
             //Harner algo

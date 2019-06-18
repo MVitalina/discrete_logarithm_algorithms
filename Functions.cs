@@ -17,6 +17,7 @@ namespace discrete_logarithm_algorithms
                 t = squareRoot;
                 squareRoot = (t + (number / t)) / 2;                
             } while (BigInteger.Abs(t - squareRoot) > 1); //TODO is right
+
             return squareRoot;
         }
 
@@ -29,6 +30,7 @@ namespace discrete_logarithm_algorithms
             BigInteger res = number;
             for (BigInteger i = 1; i < power; i++)
                 res *= number;
+
             return res;
         }
 
@@ -48,7 +50,43 @@ namespace discrete_logarithm_algorithms
                     i--;
                 }
             }
+
             return q_alpha;
+        }
+
+        //TODO which algo for GCD is better
+        //НСД 
+        public static BigInteger GCD_Euclidean(BigInteger n1, BigInteger n2)
+        {
+            /*
+             якщо a = 0
+                поверни b
+             поки b ≠ 0
+                 якщо a > b
+                   a := a − b
+                 інакше
+                   b := b − a
+             поверни a
+             */
+
+            if (n1 == 0)
+            {
+                return n2;
+            }
+
+            while (n2 != 0)
+            {
+                if (n1 > n2)
+                {
+                    n1 = n1 - n2;
+                }
+                else
+                {
+                    n2 = n2 - n1;
+                }
+            }
+
+            return n1; // +
         }
 
         /*public PohligHellmanAlgorithm.StructQAlX Set_q_alpha(out List< PohligHellmanAlgorithm.StructQAlX > q_al_List, BigInteger number)
