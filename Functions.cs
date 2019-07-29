@@ -35,9 +35,9 @@ namespace discrete_logarithm_algorithms
         }
 
         //Дільники (q) числа (number) і їх кількість (alpha)
-        public static Dictionary<int, int> q_alpha(BigInteger number)
+        public static Dictionary<BigInteger, int> q_alpha(BigInteger number)
         {
-            Dictionary<int, int> q_alpha = new Dictionary<int, int>();
+            Dictionary<BigInteger, int> q_alpha = new Dictionary<BigInteger, int>();
             for (int i = 2; i <= number; i++)
             {
                 if (number % i == 0)

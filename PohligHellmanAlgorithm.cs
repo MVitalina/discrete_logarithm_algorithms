@@ -12,17 +12,17 @@ namespace discrete_logarithm_algorithms
         public BigInteger doAlgo(BigInteger p, BigInteger a, BigInteger b)
         {
             //1 find dividers of (р-1)
-            Dictionary<int, int> q_alpha = Functions.q_alpha(p - 1);
+            Dictionary<BigInteger, int> q_alpha = Functions.q_alpha(p - 1);
 
 
             //2 table r
-            int q;
+            BigInteger q;
             // get index throught the loop
             BigInteger[][] r = new BigInteger[q_alpha.Count][];
             for (int q_index = 0; q_index < q_alpha.Count; q_index++)
             {
                 q = q_alpha.ElementAt(q_index).Key;
-                r[q_index] = new BigInteger[q];
+                r[q_index] = new BigInteger[(int)q]; //TODO what to do with it
                 for (int j = 0; j < q; j++)
                 {
                     r[q_index][j] = Functions.pow(a, (j * (p - 1) / q)) % p; // r +
@@ -33,7 +33,7 @@ namespace discrete_logarithm_algorithms
             for (int q_index = 0; q_index < q_alpha.Count; q_index++)
             {
                 q = q_alpha.ElementAt(q_index).Key;
-                int[] xi = new int[q_alpha[q]];
+                BigInteger[] xi = new BigInteger[q_alpha[q]];
                 BigInteger temp; // b^power OR b*a^power
 
                 for (int al = 0; al < q_alpha[q]; al++)
@@ -52,7 +52,7 @@ namespace discrete_logarithm_algorithms
                     }
                     else 
                     {
-                        int power = xi[0];
+                        BigInteger power = xi[0];
                         for (int i = 1; i < al; i++) {
                             power += xi[i] * (int)Functions.pow(q, i);
                         }
@@ -88,24 +88,42 @@ namespace discrete_logarithm_algorithms
 
                 x = x % (Functions.pow(q, q_alpha[q]));
                 q_x.Add(q, x);
-                //System.Diagnostics.Debug.WriteLine("x = " + x);
+                System.Diagnostics.Debug.WriteLine("x = " + x);
             }
             //4 solve system х by Chinese remainder Th
-            //Harner algo
+            BigInteger X = 0;
+            BigInteger M0 = 0;
+            BigInteger[] Mi = new BigInteger[q_x.Count];
+            BigInteger[] Yi = new BigInteger[q_x.Count];
+            BigInteger[] mi = new BigInteger[q_x.Count];
+            int counter = 0;
 
-            /*for (int i = 0; i < k; ++i)
+            foreach (var qx in q_x)
             {
-                x[i] = a[i];
-                for (int j = 0; j < i; ++j)
+                mi[counter] = Functions.pow(qx.Key, q_alpha[qx.Key]);
+                M0 *= mi[counter];
+                Mi[counter] = M0 / mi[counter];
+                counter++;
+            }
+
+            counter = 0;
+            foreach (var qx in q_x)
+            {
+                for (int i = 1; i < mi[counter]; i++)
                 {
-                    x[i] = r[j][i] * (x[i] - x[j]);
-
-                    x[i] = x[i] % p[i];
-                    if (x[i] < 0) x[i] += p[i];
+                    if ((Mi[counter] * Yi[counter] - qx.Value) % mi[counter] == 0 )
+                    {
+                        Yi[counter] = i;
+                        System.Diagnostics.Debug.WriteLine(i);
+                        break;
+                    }
                 }
-            }*/
+                X += Mi[counter] * Yi[counter];
+                counter++;
+            }
+            
 
-            return -1;
+            return X;
         }
     }
 }
