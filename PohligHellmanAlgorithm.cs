@@ -88,41 +88,45 @@ namespace discrete_logarithm_algorithms
 
                 x = x % (Functions.pow(q, q_alpha[q]));
                 q_x.Add(q, x);
-                System.Diagnostics.Debug.WriteLine("x = " + x);
+                System.Diagnostics.Debug.WriteLine($"x = {x}; q = {q}"); //OK
             }
+
             //4 solve system х by Chinese remainder Th
             BigInteger X = 0;
-            BigInteger M0 = 0;
+            BigInteger M0 = 1;
             BigInteger[] Mi = new BigInteger[q_x.Count];
             BigInteger[] Yi = new BigInteger[q_x.Count];
             BigInteger[] mi = new BigInteger[q_x.Count];
-            int counter = 0;
 
+            int counter = 0;
             foreach (var qx in q_x)
             {
                 mi[counter] = Functions.pow(qx.Key, q_alpha[qx.Key]);
                 M0 *= mi[counter];
-                Mi[counter] = M0 / mi[counter];
                 counter++;
             }
 
             counter = 0;
             foreach (var qx in q_x)
             {
+                Mi[counter] = M0 / mi[counter];
+                counter++;
+            } 
+
+            counter = 0;
+            foreach (var qx in q_x)
+            {
                 for (int i = 1; i < mi[counter]; i++)
                 {
-                    if ((Mi[counter] * Yi[counter] - qx.Value) % mi[counter] == 0 )
+                    if ((Mi[counter] * i - qx.Value) % mi[counter] == 0 )
                     {
                         Yi[counter] = i;
-                        System.Diagnostics.Debug.WriteLine(i);
                         break;
                     }
                 }
                 X += Mi[counter] * Yi[counter];
                 counter++;
-            }
-            
-
+            } 
             return X;
         }
     }
