@@ -36,7 +36,7 @@ namespace discrete_logarithm_algorithms
                     if (z[i] == z[i / 2])
                     {
                         //System.Diagnostics.Debug.WriteLine("result = " + Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
-                        if (BigInteger_SimpleMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
+                        if (BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
                         {
                             BigInteger result = v[i / 2] - v[i];
                             result = result % (p - 1);
@@ -120,7 +120,7 @@ namespace discrete_logarithm_algorithms
                 }
             }
             //TODO - CRASH HERE
-            z.Add(BigInteger_SimpleMath.Pow(b, u[i + 1]) * BigInteger_SimpleMath.Pow(a, v[i + 1]));
+            z.Add(BigMath.Pow(b, u[i + 1]) * BigMath.Pow(a, v[i + 1]));
             z[i + 1] = z[i + 1] % (p - 1);
 
         }

@@ -12,7 +12,7 @@ namespace discrete_logarithm_algorithms
         public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
         {
             //1 find dividers of (р-1)
-            Dictionary<BigInteger, int> q_alpha = BigInteger_SimpleMath.Q_Alpha(p - 1);
+            Dictionary<BigInteger, int> q_alpha = BigMath.Q_Alpha(p - 1);
 
             //2 table r
             BigInteger q;
@@ -24,7 +24,7 @@ namespace discrete_logarithm_algorithms
                 r[q_index] = new BigInteger[(int)q]; //TODO what to do with it
                 for (int j = 0; j < q; j++)
                 {
-                    r[q_index][j] = BigInteger_SimpleMath.Pow(a, (j * (p - 1) / q)) % p; // r +
+                    r[q_index][j] = BigMath.Pow(a, (j * (p - 1) / q)) % p; // r +
                 }
             }
             //3 system х
@@ -39,7 +39,7 @@ namespace discrete_logarithm_algorithms
                 {
                     if (al == 0)
                     {
-                        temp = BigInteger_SimpleMath.Pow(b, (p - 1) / q) % p;
+                        temp = BigMath.Pow(b, (p - 1) / q) % p;
                         //System.Diagnostics.Debug.WriteLine("temp = " + temp);
                         for (int j = 0; j < q; j++) 
                         {
@@ -53,7 +53,7 @@ namespace discrete_logarithm_algorithms
                     {
                         BigInteger power = xi[0];
                         for (int i = 1; i < al; i++) {
-                            power += xi[i] * (int)BigInteger_SimpleMath.Pow(q, i);
+                            power += xi[i] * (int)BigMath.Pow(q, i);
                         }
 
                         if (power == 1)
@@ -62,11 +62,11 @@ namespace discrete_logarithm_algorithms
                         }
                         else
                         {
-                            temp = b * BigInteger_SimpleMath.Pow(a, -power);//a^(-x0-x1..) TODO power < 0
+                            temp = b * BigMath.Pow(a, -power);//a^(-x0-x1..) TODO power < 0
                         }
 
                         //temp = b * temp; //b*a
-                        temp = BigInteger_SimpleMath.Pow(temp, (p - 1) / (BigInteger_SimpleMath.Pow(q, al + 1))); //(b*a)^(...)
+                        temp = BigMath.Pow(temp, (p - 1) / (BigMath.Pow(q, al + 1))); //(b*a)^(...)
                         temp = temp % p; //(mod p)
                         //System.Diagnostics.Debug.WriteLine("temp = " + temp);
                         for (int j = 0; j < q; j++)
@@ -82,10 +82,10 @@ namespace discrete_logarithm_algorithms
                 BigInteger x = xi[0];
                 for (int i = 1; i < xi.Length; i++)
                 {
-                    x += xi[i] * BigInteger_SimpleMath.Pow(q, i);
+                    x += xi[i] * BigMath.Pow(q, i);
                 }  
 
-                x = x % (BigInteger_SimpleMath.Pow(q, q_alpha[q]));
+                x = x % (BigMath.Pow(q, q_alpha[q]));
                 q_x.Add(q, x);
                 System.Diagnostics.Debug.WriteLine($"x = {x}; q = {q}"); //OK
             }
@@ -100,7 +100,7 @@ namespace discrete_logarithm_algorithms
             int counter = 0;
             foreach (var qx in q_x)
             {
-                mi[counter] = BigInteger_SimpleMath.Pow(qx.Key, q_alpha[qx.Key]);
+                mi[counter] = BigMath.Pow(qx.Key, q_alpha[qx.Key]);
                 M0 *= mi[counter];
                 counter++;
             }

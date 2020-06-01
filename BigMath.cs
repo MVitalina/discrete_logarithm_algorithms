@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace discrete_logarithm_algorithms
 {
-    public class BigInteger_SimpleMath //TODO refactor 
+    public class BigMath //TODO refactor 
     {
         public static BigInteger Sqrt(BigInteger number)
         {

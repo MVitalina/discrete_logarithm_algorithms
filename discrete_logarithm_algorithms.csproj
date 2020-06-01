@@ -69,7 +69,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BigInteger_SimpleMath.cs" />
+    <Compile Include="BigMath.cs" />
     <Compile Include="Solver\BruteForceMethod.cs" />
     <Compile Include="Solver\MatchingAlgorithm.cs" />
     <Compile Include="Solver\PohligHellmanAlgorithm.cs" />

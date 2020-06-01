@@ -10,7 +10,7 @@ namespace discrete_logarithm_algorithms
     partial class Solver
     {
         public static BigInteger Solve(TypeOfAlgo _type, BigInteger _a, BigInteger _b, BigInteger _p)
-        {
+        {   
             return Instance.PrivateSolve(_type, _a, _b, _p);
         }
 
