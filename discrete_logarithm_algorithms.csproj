@@ -70,7 +70,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BigInteger_SimpleMath.cs" />
-    <Compile Include="Solver\MatchingAlgorithm - Copy.cs" />
+    <Compile Include="Solver\BruteForceMethod.cs" />
     <Compile Include="Solver\MatchingAlgorithm.cs" />
     <Compile Include="Solver\PohligHellmanAlgorithm.cs" />
     <Compile Include="Solver\PollardRhoAlgorithm.cs" />
