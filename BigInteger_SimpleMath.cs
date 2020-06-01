@@ -7,9 +7,10 @@ using System.Numerics;
 
 namespace discrete_logarithm_algorithms
 {
-    public class Functions
+    public class BigInteger_SimpleMath //TODO refactor 
     {
-        public static BigInteger sqrt(BigInteger number) {
+        public static BigInteger Sqrt(BigInteger number)
+        {
             BigInteger t;
             BigInteger squareRoot = number / 2;
             do
@@ -21,7 +22,7 @@ namespace discrete_logarithm_algorithms
             return squareRoot;
         }
 
-        public static BigInteger pow(BigInteger number, BigInteger power)
+        public static BigInteger Pow(BigInteger number, BigInteger power)
         {
             if (power == -1)
                 return 1 / number;
@@ -34,8 +35,9 @@ namespace discrete_logarithm_algorithms
             return res;
         }
 
+        //TODO good comments
         //Дільники (q) числа (number) і їх кількість (alpha)
-        public static Dictionary<BigInteger, int> q_alpha(BigInteger number)
+        public static Dictionary<BigInteger, int> Q_Alpha(BigInteger number)
         {
             Dictionary<BigInteger, int> q_alpha = new Dictionary<BigInteger, int>();
             for (int i = 2; i <= number; i++)
@@ -58,6 +60,8 @@ namespace discrete_logarithm_algorithms
         //НСД 
         public static BigInteger GCD_Euclidean(BigInteger n1, BigInteger n2)
         {
+            //TODO refactor - don`t use 'in' vars
+
             /*
              якщо a = 0
                 поверни b

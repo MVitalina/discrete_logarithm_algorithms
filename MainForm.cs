@@ -18,90 +18,68 @@ namespace discrete_logarithm_algorithms
         public MainForm()
         {
             InitializeComponent();
+            A = 0;
+            B = 0;
+            P = 0;
+
             textBoxA.Text = "3";
             textBoxB.Text = "13";
             textBoxP.Text = "17";
+            ParseVariables();
         }
 
-        private void buttonSF_Click(object sender, EventArgs e)
+        //TODO disable X
+        //TODO another thread
+        //TODO Custom textBox control: coloring + validator (add yellow if computing longer than 5 sec) 
+        //TODO logo
+
+        private void ParseVariables()
         {
+            //TODO try catch needed
             A = BigInteger.Parse(textBoxA.Text);
             B = BigInteger.Parse(textBoxB.Text);
             P = BigInteger.Parse(textBoxP.Text);
-
-            SimpleFormula simpleFormula = new SimpleFormula();
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            BigInteger result = simpleFormula.doAlgo(P, A, B);
-            watch.Stop();
-            var elapseMs = watch.Elapsed.TotalMilliseconds;
-
-            textBoxX.Text = result.ToString();
-            labelSF.Text = "Time: " + elapseMs.ToString() + " ms";
-
-            //Console.WriteLine("result of simple formula = " + simpleFormula.doAlgo(37, 2, 28));
-            //Console.WriteLine("result of simple formula = " + simpleFormula.doAlgo(17, 3, 13));
         }
 
-        private void buttonSub_Click(object sender, EventArgs e)
+        private void buttonSimpleFormula_Click(object sender, EventArgs e)
         {
+            StartProcess(TypeOfAlgo.SimpleFormula, labelSF);
         }
 
-        private void buttonMA_Click(object sender, EventArgs e)
+        private void buttonBruteForce_Click(object sender, EventArgs e)
         {
-            A = BigInteger.Parse(textBoxA.Text);
-            B = BigInteger.Parse(textBoxB.Text);
-            P = BigInteger.Parse(textBoxP.Text);
-
-            MatchingAlgorithm matchingAlgorithm = new MatchingAlgorithm();
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            BigInteger result = matchingAlgorithm.doAlgo(P, A, B);
-            watch.Stop();
-            var elapseMs = watch.Elapsed.TotalMilliseconds;
-
-            textBoxX.Text = result.ToString();
-            labelMA.Text = "Time: " + elapseMs.ToString() + " ms";
-
-            //MatchingAlgorithm matchingAlgorithm = new MatchingAlgorithm();
-            //Console.WriteLine(matchingAlgorithm.doAlgo(17, 3, 13));
+            StartProcess(TypeOfAlgo.BruteForce, labelBF);
         }
 
-        private void buttonPHA_Click(object sender, EventArgs e)
+        private void buttonMatching_Click(object sender, EventArgs e)
         {
-            A = BigInteger.Parse(textBoxA.Text);
-            B = BigInteger.Parse(textBoxB.Text);
-            P = BigInteger.Parse(textBoxP.Text);
-
-            PohligHellmanAlgorithm pohligHellmanAlgorithm = new PohligHellmanAlgorithm();
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            BigInteger result = pohligHellmanAlgorithm.doAlgo(P, A, B);
-            watch.Stop();
-            var elapseMs = watch.Elapsed.TotalMilliseconds;
-
-            textBoxX.Text = result.ToString();
-            labelPHA.Text = "Time: " + elapseMs.ToString() + " ms";
+            StartProcess(TypeOfAlgo.Matching, labelMA);
         }
 
-        private void buttonRo_Click(object sender, EventArgs e)
+        private void buttonPohligHellman_Click(object sender, EventArgs e)
         {
-            A = BigInteger.Parse(textBoxA.Text);
-            B = BigInteger.Parse(textBoxB.Text);
-            P = BigInteger.Parse(textBoxP.Text);
+            StartProcess(TypeOfAlgo.PohligHellman, labelPHA);
+        }
 
-            PollardRhoAlgorithm pollardRhoAlgorithm = new PollardRhoAlgorithm();
+        private void buttonRhoPollard_Click(object sender, EventArgs e)
+        {
+            StartProcess(TypeOfAlgo.PollardRho, labelRho);
+        }
 
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            BigInteger result = pollardRhoAlgorithm.doAlgo(P, A, B);
+        private void StartProcess(TypeOfAlgo type, Label label)
+        {
+            ParseVariables();
+
+            //TODO measurer
+            var watch = System.Diagnostics.Stopwatch.StartNew(); 
+            BigInteger result = Solver.Solve(type, A, B, P);
             watch.Stop();
-            var elapseMs = watch.Elapsed.TotalMilliseconds;
+            double elapsedMs = watch.Elapsed.TotalMilliseconds;
 
+            //TODO red background if -1  
+            //TODO "Time: error"
             textBoxX.Text = result.ToString();
-            labelRo.Text = "Time: " + elapseMs.ToString() + " ms";
-
-            //PollardRhoAlgorithm pollardRhoAlgorithm = new PollardRhoAlgorithm(); 
-
+            label.Text = "Time: " + elapsedMs.ToString() + " ms";
         }
     }
 }

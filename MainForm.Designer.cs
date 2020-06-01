@@ -36,18 +36,18 @@
             this.textBoxA = new System.Windows.Forms.TextBox();
             this.textBoxB = new System.Windows.Forms.TextBox();
             this.textBoxP = new System.Windows.Forms.TextBox();
-            this.buttonSF = new System.Windows.Forms.Button();
-            this.buttonMA = new System.Windows.Forms.Button();
-            this.buttonPHA = new System.Windows.Forms.Button();
-            this.buttonRo = new System.Windows.Forms.Button();
-            this.buttonSub = new System.Windows.Forms.Button();
+            this.buttonSimpleFormula = new System.Windows.Forms.Button();
+            this.buttonMatching = new System.Windows.Forms.Button();
+            this.buttonPohligHellman = new System.Windows.Forms.Button();
+            this.buttonRhoPollard = new System.Windows.Forms.Button();
+            this.buttonBruteForce = new System.Windows.Forms.Button();
             this.textBoxX = new System.Windows.Forms.TextBox();
             this.labelX = new System.Windows.Forms.Label();
             this.labelSF = new System.Windows.Forms.Label();
-            this.labelSM = new System.Windows.Forms.Label();
+            this.labelBF = new System.Windows.Forms.Label();
             this.labelMA = new System.Windows.Forms.Label();
             this.labelPHA = new System.Windows.Forms.Label();
-            this.labelRo = new System.Windows.Forms.Label();
+            this.labelRho = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,55 +112,55 @@
             this.textBoxP.Size = new System.Drawing.Size(274, 20);
             this.textBoxP.TabIndex = 6;
             // 
-            // buttonSF
+            // buttonSimpleFormula
             // 
-            this.buttonSF.Location = new System.Drawing.Point(13, 174);
-            this.buttonSF.Name = "buttonSF";
-            this.buttonSF.Size = new System.Drawing.Size(297, 31);
-            this.buttonSF.TabIndex = 7;
-            this.buttonSF.Text = "Simple Formula";
-            this.buttonSF.UseVisualStyleBackColor = true;
-            this.buttonSF.Click += new System.EventHandler(this.buttonSF_Click);
+            this.buttonSimpleFormula.Location = new System.Drawing.Point(13, 174);
+            this.buttonSimpleFormula.Name = "buttonSimpleFormula";
+            this.buttonSimpleFormula.Size = new System.Drawing.Size(297, 31);
+            this.buttonSimpleFormula.TabIndex = 7;
+            this.buttonSimpleFormula.Text = "Simple Formula";
+            this.buttonSimpleFormula.UseVisualStyleBackColor = true;
+            this.buttonSimpleFormula.Click += new System.EventHandler(this.buttonSimpleFormula_Click);
             // 
-            // buttonMA
+            // buttonMatching
             // 
-            this.buttonMA.Location = new System.Drawing.Point(13, 248);
-            this.buttonMA.Name = "buttonMA";
-            this.buttonMA.Size = new System.Drawing.Size(297, 31);
-            this.buttonMA.TabIndex = 8;
-            this.buttonMA.Text = "Matching Algorithm";
-            this.buttonMA.UseVisualStyleBackColor = true;
-            this.buttonMA.Click += new System.EventHandler(this.buttonMA_Click);
+            this.buttonMatching.Location = new System.Drawing.Point(13, 248);
+            this.buttonMatching.Name = "buttonMatching";
+            this.buttonMatching.Size = new System.Drawing.Size(297, 31);
+            this.buttonMatching.TabIndex = 9;
+            this.buttonMatching.Text = "Matching Algorithm";
+            this.buttonMatching.UseVisualStyleBackColor = true;
+            this.buttonMatching.Click += new System.EventHandler(this.buttonMatching_Click);
             // 
-            // buttonPHA
+            // buttonPohligHellman
             // 
-            this.buttonPHA.Location = new System.Drawing.Point(12, 285);
-            this.buttonPHA.Name = "buttonPHA";
-            this.buttonPHA.Size = new System.Drawing.Size(297, 31);
-            this.buttonPHA.TabIndex = 9;
-            this.buttonPHA.Text = "Pohlig-Hellman Algorithm";
-            this.buttonPHA.UseVisualStyleBackColor = true;
-            this.buttonPHA.Click += new System.EventHandler(this.buttonPHA_Click);
+            this.buttonPohligHellman.Location = new System.Drawing.Point(12, 285);
+            this.buttonPohligHellman.Name = "buttonPohligHellman";
+            this.buttonPohligHellman.Size = new System.Drawing.Size(297, 31);
+            this.buttonPohligHellman.TabIndex = 10;
+            this.buttonPohligHellman.Text = "Pohlig-Hellman Algorithm";
+            this.buttonPohligHellman.UseVisualStyleBackColor = true;
+            this.buttonPohligHellman.Click += new System.EventHandler(this.buttonPohligHellman_Click);
             // 
-            // buttonRo
+            // buttonRhoPollard
             // 
-            this.buttonRo.Location = new System.Drawing.Point(12, 322);
-            this.buttonRo.Name = "buttonRo";
-            this.buttonRo.Size = new System.Drawing.Size(297, 31);
-            this.buttonRo.TabIndex = 10;
-            this.buttonRo.Text = "Pollard Rho Algorithm";
-            this.buttonRo.UseVisualStyleBackColor = true;
-            this.buttonRo.Click += new System.EventHandler(this.buttonRo_Click);
+            this.buttonRhoPollard.Location = new System.Drawing.Point(12, 322);
+            this.buttonRhoPollard.Name = "buttonRhoPollard";
+            this.buttonRhoPollard.Size = new System.Drawing.Size(297, 31);
+            this.buttonRhoPollard.TabIndex = 11;
+            this.buttonRhoPollard.Text = "Pollard Rho Algorithm";
+            this.buttonRhoPollard.UseVisualStyleBackColor = true;
+            this.buttonRhoPollard.Click += new System.EventHandler(this.buttonRhoPollard_Click);
             // 
-            // buttonSub
+            // buttonBruteForce
             // 
-            this.buttonSub.Location = new System.Drawing.Point(12, 211);
-            this.buttonSub.Name = "buttonSub";
-            this.buttonSub.Size = new System.Drawing.Size(297, 31);
-            this.buttonSub.TabIndex = 11;
-            this.buttonSub.Text = "Substitution Method";
-            this.buttonSub.UseVisualStyleBackColor = true;
-            this.buttonSub.Click += new System.EventHandler(this.buttonSub_Click);
+            this.buttonBruteForce.Location = new System.Drawing.Point(12, 211);
+            this.buttonBruteForce.Name = "buttonBruteForce";
+            this.buttonBruteForce.Size = new System.Drawing.Size(297, 31);
+            this.buttonBruteForce.TabIndex = 8;
+            this.buttonBruteForce.Text = "Brute Force Method";
+            this.buttonBruteForce.UseVisualStyleBackColor = true;
+            this.buttonBruteForce.Click += new System.EventHandler(this.buttonBruteForce_Click);
             // 
             // textBoxX
             // 
@@ -189,15 +189,15 @@
             this.labelSF.TabIndex = 14;
             this.labelSF.Text = "Time: ";
             // 
-            // labelSM
+            // labelBF
             // 
-            this.labelSM.AutoSize = true;
-            this.labelSM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSM.Location = new System.Drawing.Point(330, 215);
-            this.labelSM.Name = "labelSM";
-            this.labelSM.Size = new System.Drawing.Size(51, 20);
-            this.labelSM.TabIndex = 15;
-            this.labelSM.Text = "Time: ";
+            this.labelBF.AutoSize = true;
+            this.labelBF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelBF.Location = new System.Drawing.Point(330, 215);
+            this.labelBF.Name = "labelBF";
+            this.labelBF.Size = new System.Drawing.Size(51, 20);
+            this.labelBF.TabIndex = 15;
+            this.labelBF.Text = "Time: ";
             // 
             // labelMA
             // 
@@ -219,33 +219,33 @@
             this.labelPHA.TabIndex = 17;
             this.labelPHA.Text = "Time: ";
             // 
-            // labelRo
+            // labelRho
             // 
-            this.labelRo.AutoSize = true;
-            this.labelRo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRo.Location = new System.Drawing.Point(330, 326);
-            this.labelRo.Name = "labelRo";
-            this.labelRo.Size = new System.Drawing.Size(51, 20);
-            this.labelRo.TabIndex = 18;
-            this.labelRo.Text = "Time: ";
+            this.labelRho.AutoSize = true;
+            this.labelRho.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRho.Location = new System.Drawing.Point(330, 326);
+            this.labelRho.Name = "labelRho";
+            this.labelRho.Size = new System.Drawing.Size(51, 20);
+            this.labelRho.TabIndex = 18;
+            this.labelRho.Text = "Time: ";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 365);
-            this.Controls.Add(this.labelRo);
+            this.Controls.Add(this.labelRho);
             this.Controls.Add(this.labelPHA);
             this.Controls.Add(this.labelMA);
-            this.Controls.Add(this.labelSM);
+            this.Controls.Add(this.labelBF);
             this.Controls.Add(this.labelSF);
             this.Controls.Add(this.textBoxX);
             this.Controls.Add(this.labelX);
-            this.Controls.Add(this.buttonSub);
-            this.Controls.Add(this.buttonRo);
-            this.Controls.Add(this.buttonPHA);
-            this.Controls.Add(this.buttonMA);
-            this.Controls.Add(this.buttonSF);
+            this.Controls.Add(this.buttonBruteForce);
+            this.Controls.Add(this.buttonRhoPollard);
+            this.Controls.Add(this.buttonPohligHellman);
+            this.Controls.Add(this.buttonMatching);
+            this.Controls.Add(this.buttonSimpleFormula);
             this.Controls.Add(this.textBoxP);
             this.Controls.Add(this.textBoxB);
             this.Controls.Add(this.textBoxA);
@@ -270,18 +270,18 @@
         private System.Windows.Forms.TextBox textBoxA;
         private System.Windows.Forms.TextBox textBoxB;
         private System.Windows.Forms.TextBox textBoxP;
-        private System.Windows.Forms.Button buttonSF;
-        private System.Windows.Forms.Button buttonMA;
-        private System.Windows.Forms.Button buttonPHA;
-        private System.Windows.Forms.Button buttonRo;
-        private System.Windows.Forms.Button buttonSub;
+        private System.Windows.Forms.Button buttonSimpleFormula;
+        private System.Windows.Forms.Button buttonMatching;
+        private System.Windows.Forms.Button buttonPohligHellman;
+        private System.Windows.Forms.Button buttonRhoPollard;
+        private System.Windows.Forms.Button buttonBruteForce;
         private System.Windows.Forms.TextBox textBoxX;
         private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label labelSF;
-        private System.Windows.Forms.Label labelSM;
+        private System.Windows.Forms.Label labelBF;
         private System.Windows.Forms.Label labelMA;
         private System.Windows.Forms.Label labelPHA;
-        private System.Windows.Forms.Label labelRo;
+        private System.Windows.Forms.Label labelRho;
     }
 }
 

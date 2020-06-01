@@ -9,15 +9,14 @@ namespace discrete_logarithm_algorithms
 {
     class PollardRhoAlgorithm
     {
-        private static BigInteger p;
+        //TODO REFACTOR!!!
+
         private static BigInteger a;
         private static BigInteger b;
+        private static BigInteger p;
 
-        public BigInteger doAlgo(BigInteger _p, BigInteger _a, BigInteger _b)
+        public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
         {
-            p = _p;
-            a = _a;
-            b = _b;
             //maybe array [?]
             List<BigInteger> u = new List<BigInteger>();
             List<BigInteger> v = new List<BigInteger>();
@@ -37,7 +36,7 @@ namespace discrete_logarithm_algorithms
                     if (z[i] == z[i / 2])
                     {
                         //System.Diagnostics.Debug.WriteLine("result = " + Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
-                        if (Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
+                        if (BigInteger_SimpleMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
                         {
                             BigInteger result = v[i / 2] - v[i];
                             result = result % (p - 1);
@@ -100,29 +99,30 @@ namespace discrete_logarithm_algorithms
         private static void fillList(ref List<BigInteger> u, ref List<BigInteger> v, ref List<BigInteger> z, int i)
         {
             if ((0 <= z[i]) && (z[i] <= p / 3))
+            {
+                u.Add(u[i] + 1);
+                v.Add(v[i]);
+            }
+            else
+            {
+                if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
                 {
-                    u.Add(u[i] + 1);
-                    v.Add(v[i]);
+                    u.Add(2 * u[i]);
+                    v.Add(2 * v[i]);
                 }
                 else
                 {
-                    if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
+                    if ((2 * p / 3 < z[i]) && (z[i] <= p))
                     {
-                        u.Add(2 * u[i]);
-                        v.Add(2 * v[i]);
-                    }
-                    else
-                    {
-                        if ((2 * p / 3 < z[i]) && (z[i] <= p))
-                        {
-                            u.Add(u[i]);
-                            v.Add(v[i] + 1);
-                        }
+                        u.Add(u[i]);
+                        v.Add(v[i] + 1);
                     }
                 }
-                z.Add(Functions.pow(b, u[i + 1]) * Functions.pow(a, v[i + 1]));
+            }
+            //TODO - CRASH HERE
+            z.Add(BigInteger_SimpleMath.Pow(b, u[i + 1]) * BigInteger_SimpleMath.Pow(a, v[i + 1]));
             z[i + 1] = z[i + 1] % (p - 1);
-            
+
         }
     }
 }
