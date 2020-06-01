@@ -17,7 +17,6 @@ namespace discrete_logarithm_algorithms
 
         public MainForm()
         {
-            //test
             InitializeComponent();
             A = 0;
             B = 0;
