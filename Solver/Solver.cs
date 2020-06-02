@@ -20,21 +20,41 @@ namespace discrete_logarithm_algorithms
             //instance = switch -> class
             //instance.solve
 
+            BigInteger result = -1;
+
             switch (type)
             {
                 case TypeOfAlgo.BruteForce:
-                    return BruteForceMethod.Solve(a, b, p);
+                    result = BruteForceMethod.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.SimpleFormula:
-                    return SimpleFormula.Solve(a, b, p);
+                    result = SimpleFormula.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.Matching:
-                    return MatchingAlgorithm.Solve(a, b, p);
+                    result = MatchingAlgorithm.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.PohligHellman:
-                    return PohligHellmanAlgorithm.Solve(a, b, p);
+                    result = PohligHellmanAlgorithm.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.PollardRho:
-                    return PollardRhoAlgorithm.Solve(a, b, p);
+                    result = PollardRhoAlgorithm.Solve(a, b, p);
+                    break;
             }
 
-            return -1;
+            Console.WriteLine(CheckResult(a, b, p, result) ? "correct" : "wrong");
+
+            return result;
+        }
+
+        public static bool CheckResult(BigInteger a, BigInteger b, BigInteger p, BigInteger x)
+        {
+            if (x < 0)
+            {
+                return false;
+            }
+
+            bool isSubstitutionCorrect = BigMath.Pow(a, x) % p == b;
+            return isSubstitutionCorrect;
         }
 
         private Solver() //needs to be private to construct logger only in Instance

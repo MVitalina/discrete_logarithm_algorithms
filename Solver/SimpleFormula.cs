@@ -11,15 +11,28 @@ namespace discrete_logarithm_algorithms
     {
         public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
         {
-            BigInteger result = 0;
-            for (BigInteger j = 1; j <= p-2; j++)
+            BigInteger counter = 0;
+            BigInteger sum = 0;
+            for (int j = 1; j <= p - 2; j++)
             {
-                BigInteger temp = BigMath.Pow(b, j);
-                temp /= (BigMath.Pow(a, j) - 1);
-                result += temp;
+                sum += BigInteger.Pow(b, j) / (BigInteger.Pow(a, j) - 1);
+                counter++;
             }
-            result %= (p - 1);
-            return result;
+
+            //sum <= (sum) < sum + counter, because / is about integer division
+            for (BigInteger i = 0; i <= counter; i++)
+            {
+                BigInteger result = (sum + i) % (p - 1);
+
+                if (BigMath.Pow(a, result) % p == b)
+                {
+                    return result;
+                }
+            }            
+
+            return -1;
         }
+
+        
     }
 }
