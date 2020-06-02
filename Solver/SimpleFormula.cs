@@ -24,7 +24,7 @@ namespace discrete_logarithm_algorithms
             {
                 BigInteger result = (sum + i) % (p - 1);
 
-                if (BigMath.Pow(a, result) % p == b)
+                if (BigMath.Pow(a, result) % p == b) //TODO refactor
                 {
                     return result;
                 }
