@@ -15,8 +15,12 @@ namespace discrete_logarithm_algorithms
         private static BigInteger b;
         private static BigInteger p;
 
-        public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
+        public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger _p)
         {
+            a = _a;
+            b = _b;
+            p = _p;
+
             //maybe array [?]
             List<BigInteger> u = new List<BigInteger>();
             List<BigInteger> v = new List<BigInteger>();
@@ -29,27 +33,35 @@ namespace discrete_logarithm_algorithms
             i++; //i = 1
             fillList(ref u, ref v, ref z, i); // [2]
             i++; //i = 2
-            while (true)
+
+            int stopCounter = 0;
+            while (stopCounter < 1000)
             {
-                if (i % 2 == 0)
-                {
-                    if (z[i] == z[i / 2])
+                //if (i % 2 == 0)
+                //{
+                //if (z[i] == z[i / 2])
+                int foundIndex = z.FindIndex(el => el == z[i]);
+                    if (foundIndex != i)
                     {
-                        //System.Diagnostics.Debug.WriteLine("result = " + Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
-                        if (BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
-                        {
-                            BigInteger result = v[i / 2] - v[i];
-                            result = result % (p - 1);
-                            return result;
-                        }
+                    //Console.WriteLine("GCD: " + BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
+                    //if (BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
+                    Console.WriteLine("GCD: " + BigMath.GCD_Euclidean((u[i] - u[foundIndex]), (p - 1)));
+                    Console.WriteLine($"i: {i}; found: {foundIndex}");
+                    if (BigMath.GCD_Euclidean((u[i] - u[foundIndex]), (p - 1)) == 1)
+                    {
+                        BigInteger result = v[foundIndex] - v[i];
+                        result = result % (p - 1);
+                        return result;
                     }
                 }
+                //}
                 fillList(ref u, ref v, ref z, i); 
                 i++;
-                
+                Console.WriteLine(stopCounter);
+                stopCounter++;
             }
-            
 
+            return -1;
 
 
             /* while (Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) != 1)
@@ -96,30 +108,24 @@ namespace discrete_logarithm_algorithms
              return res;*/
         }
 
-        private static void fillList(ref List<BigInteger> u, ref List<BigInteger> v, ref List<BigInteger> z, int i)
+        private static void fillList(ref List<BigInteger> u, ref List<BigInteger> v, ref List<BigInteger> z, int i) //i - previous
         {
             if ((0 <= z[i]) && (z[i] <= p / 3))
             {
                 u.Add(u[i] + 1);
                 v.Add(v[i]);
             }
-            else
+            else if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
             {
-                if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
-                {
-                    u.Add(2 * u[i]);
-                    v.Add(2 * v[i]);
-                }
-                else
-                {
-                    if ((2 * p / 3 < z[i]) && (z[i] <= p))
-                    {
-                        u.Add(u[i]);
-                        v.Add(v[i] + 1);
-                    }
-                }
+                u.Add(2 * u[i]);
+                v.Add(2 * v[i]);
             }
-            //TODO - CRASH HERE
+            else if ((2 * p / 3 < z[i]) && (z[i] <= p))
+            {
+                u.Add(u[i]);
+                v.Add(v[i] + 1);
+            }
+
             z.Add(BigMath.Pow(b, u[i + 1]) * BigMath.Pow(a, v[i + 1]));
             z[i + 1] = z[i + 1] % (p - 1);
 

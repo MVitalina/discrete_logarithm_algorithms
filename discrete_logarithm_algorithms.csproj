@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enums\TypeOfAlgo.cs" />
+    <Compile Include="MainForm.Analyzer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Calculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,14 +82,9 @@
     <Compile Include="Solver\PollardRhoAlgorithm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Results.Designer.cs">
-      <DependentUpon>Results.cs</DependentUpon>
-    </Compile>
     <Compile Include="Solver\SimpleFormula.cs" />
     <Compile Include="Solver\Solver.cs" />
+    <Compile Include="Analyzer.cs" />
     <Compile Include="TimeMeasurer.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

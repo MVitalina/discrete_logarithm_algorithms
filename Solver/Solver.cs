@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace discrete_logarithm_algorithms
 {
-    partial class Solver
+    class Solver
     {
         public static BigInteger Solve(TypeOfAlgo _type, BigInteger _a, BigInteger _b, BigInteger _p)
         {   
@@ -76,6 +76,23 @@ namespace discrete_logarithm_algorithms
             }
 
             internal static readonly Solver instance = new Solver(); //instantiated once when it's first referenced
+        }
+
+        //TODO needed
+        public static BigInteger MaxValue(Type type)
+        {
+            if (type == typeof(Byte))
+                return Byte.MaxValue;
+            else if (type == typeof(UInt16))
+                return UInt16.MaxValue;
+            else if (type == typeof(UInt32))
+                return UInt32.MaxValue;
+            else if (type == typeof(UInt64))
+                return UInt64.MaxValue;
+            else if (type == typeof(BigInteger))
+                return BigInteger.Parse("1" + new string('0', 100));
+            else
+                throw new ArgumentException("Invalid argument.", "type");
         }
     }
 }
