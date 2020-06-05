@@ -80,6 +80,7 @@
     <Compile Include="Solver\MatchingAlgorithm.cs" />
     <Compile Include="Solver\PohligHellmanAlgorithm.cs" />
     <Compile Include="Solver\PollardRhoAlgorithm.cs" />
+    <Compile Include="Solver\PollardRhoAlgorithm1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solver\SimpleFormula.cs" />

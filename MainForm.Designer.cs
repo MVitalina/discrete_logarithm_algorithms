@@ -348,7 +348,7 @@
             // numericUpDownP
             // 
             this.numericUpDownP.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.numericUpDownP.Location = new System.Drawing.Point(326, 297);
+            this.numericUpDownP.Location = new System.Drawing.Point(300, 297);
             this.numericUpDownP.Name = "numericUpDownP";
             this.numericUpDownP.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownP.TabIndex = 11;
@@ -361,7 +361,7 @@
             // numericUpDownB
             // 
             this.numericUpDownB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.numericUpDownB.Location = new System.Drawing.Point(246, 297);
+            this.numericUpDownB.Location = new System.Drawing.Point(220, 297);
             this.numericUpDownB.Name = "numericUpDownB";
             this.numericUpDownB.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownB.TabIndex = 10;
@@ -374,7 +374,7 @@
             // numericUpDownA
             // 
             this.numericUpDownA.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.numericUpDownA.Location = new System.Drawing.Point(166, 297);
+            this.numericUpDownA.Location = new System.Drawing.Point(140, 297);
             this.numericUpDownA.Name = "numericUpDownA";
             this.numericUpDownA.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownA.TabIndex = 9;
@@ -388,7 +388,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic);
-            this.label3.Location = new System.Drawing.Point(144, 299);
+            this.label3.Location = new System.Drawing.Point(118, 299);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 17);
             this.label3.TabIndex = 6;
@@ -398,7 +398,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic);
-            this.label4.Location = new System.Drawing.Point(224, 299);
+            this.label4.Location = new System.Drawing.Point(198, 299);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(16, 17);
             this.label4.TabIndex = 7;
@@ -408,7 +408,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic);
-            this.label5.Location = new System.Drawing.Point(304, 299);
+            this.label5.Location = new System.Drawing.Point(278, 299);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(16, 17);
             this.label5.TabIndex = 8;
@@ -420,14 +420,14 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.Location = new System.Drawing.Point(6, 299);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 17);
+            this.label2.Size = new System.Drawing.Size(103, 17);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Positional numbers:";
+            this.label2.Text = "Count of bytes:";
             // 
             // numericNumRuns
             // 
             this.numericNumRuns.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.numericNumRuns.Location = new System.Drawing.Point(121, 268);
+            this.numericNumRuns.Location = new System.Drawing.Point(140, 268);
             this.numericNumRuns.Name = "numericNumRuns";
             this.numericNumRuns.Size = new System.Drawing.Size(52, 23);
             this.numericNumRuns.TabIndex = 4;

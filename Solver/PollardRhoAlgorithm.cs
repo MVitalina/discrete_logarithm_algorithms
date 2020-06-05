@@ -4,131 +4,122 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace discrete_logarithm_algorithms
 {
     class PollardRhoAlgorithm
     {
-        //TODO REFACTOR!!!
-
-        private static BigInteger a;
-        private static BigInteger b;
-        private static BigInteger p;
-
-        public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger _p)
+        public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger p)
         {
-            a = _a;
-            b = _b;
-            p = _p;
+            BigInteger r = _a, q = _b;
+            BigInteger x = 1, a = 0, b = 0;
+            BigInteger X = x, A = a, B = b;
 
-            //maybe array [?]
-            List<BigInteger> u = new List<BigInteger>();
-            List<BigInteger> v = new List<BigInteger>();
-            List<BigInteger> z = new List<BigInteger>();
-            int i = 0;
-            u.Add(0);
-            v.Add(0);
-            z.Add(1); //[0]
-            fillList(ref u, ref v, ref z, i); // [1] 
-            i++; //i = 1
-            fillList(ref u, ref v, ref z, i); // [2]
-            i++; //i = 2
-
-            int stopCounter = 0;
-            while (stopCounter < 1000)
+            for (int iterator = 1; iterator < p; iterator++)
             {
-                //if (i % 2 == 0)
-                //{
-                //if (z[i] == z[i / 2])
-                int foundIndex = z.FindIndex(el => el == z[i]);
-                    if (foundIndex != i)
+                RefreshValues(ref x, ref a, ref b, r, q, p);
+                RefreshValues(ref X, ref A, ref B, r, q, p); //2i - 2
+                RefreshValues(ref X, ref A, ref B, r, q, p);
+
+                if (x == X)
+                {
+                    //Console.WriteLine("i: " + iterator); //+
+                    //Console.WriteLine("x = X: " + x); //+ 
+                    //Console.WriteLine("a: " + a); 
+                    //Console.WriteLine("b: " + b); 
+                    //Console.WriteLine("A: " + A); 
+                    //Console.WriteLine("B: " + B); 
+                    
+                    BigInteger m = (a - A).Mod(p - 1),  // + + 
+                        n = (B - b).Mod(p - 1);
+
+                    //BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+                    //Console.WriteLine("d: " + d);
+
+                    //BigInteger result = ((a - A) / (B - b)).Mod(p);
+                    for (BigInteger i = 0; i < p; i++)
                     {
-                    //Console.WriteLine("GCD: " + BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
-                    //if (BigMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
-                    Console.WriteLine("GCD: " + BigMath.GCD_Euclidean((u[i] - u[foundIndex]), (p - 1)));
-                    Console.WriteLine($"i: {i}; found: {foundIndex}");
-                    if (BigMath.GCD_Euclidean((u[i] - u[foundIndex]), (p - 1)) == 1)
-                    {
-                        BigInteger result = v[foundIndex] - v[i];
-                        result = result % (p - 1);
-                        return result;
+                        BigInteger temp = m * i % (p - 1);
+                        Console.WriteLine(temp);
+                        if (temp == n )
+                        {
+                            return i;
+                        }
                     }
+
+                    return -1;
+
+                    //if ((BigMath.Pow(q, m) % p) != (BigMath.Pow(r, n) % p)) //just a check
+                    //{
+                    //    Console.WriteLine("(BigMath.Pow(q, m) % p) != (BigMath.Pow(r, n) % p)");
+                    //    //return -1;
+                    //}
+                    //BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+
+                    //for (int i = 0; i < d; i++)
+                    //{
+                    //    //if (BigMath.Pow(r, ))
+                    //}
                 }
-                //}
-                fillList(ref u, ref v, ref z, i); 
-                i++;
-                Console.WriteLine(stopCounter);
-                stopCounter++;
             }
 
             return -1;
-
-
-            /* while (Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) != 1)
-             {
-                 //i = doLoop(p, a, b, ref u, ref v, ref z, i);
-                 while (u[i] != u[i / 2])
-                 {
-                     if ((0 <= z[i]) && (z[i] <= p / 3))
-                     {
-                         u.Add(u[i] + 1);
-                         v.Add(v[i]);
-                         /*u[i + 1] = u[i] + 1;
-                         v[i + 1] = v[i];
-                     }
-                     else
-                     {
-                         if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
-                         {
-                             u.Add(2 * u[i]);
-                             v.Add(2 * v[i]);
-                             /*u[i + 1] = 2 * u[i];
-                             v[i + 1] = 2 * v[i];
-                         }
-                         else
-                         {
-                             if ((2 * p / 3 < z[i]) && (z[i] <= p))
-                             {
-                                 u.Add(u[i]);
-                                 v.Add(v[i] + 1);
-                                 /*u[i + 1] = u[i];
-                                 v[i + 1] = v[i] + 1;
-                             }
-                         }
-                     }
-                     z.Add(Functions.pow(b, u[i + 1]) * Functions.pow(a, v[i + 1]));
-                     //z[i + 1] = Functions.pow(b, u[i + 1]) * Functions.pow(a, v[i + 1]);
-                     z[i + 1] = z[i + 1] % (p - 1);
-                     System.Diagnostics.Debug.WriteLine("z = " + z[i+1]);
-                     i++;
-                 }
-             } 
-             BigInteger res = v[i / 2] - v[i];
-             res = res % (p - 1);
-             return res;*/
         }
 
-        private static void fillList(ref List<BigInteger> u, ref List<BigInteger> v, ref List<BigInteger> z, int i) //i - previous
+        private static void RefreshValues(ref BigInteger x, ref BigInteger a, ref BigInteger b, 
+            BigInteger r, BigInteger q, BigInteger p)
         {
-            if ((0 <= z[i]) && (z[i] <= p / 3))
+            if ((0 <= x) && (x <= p / 3))
             {
-                u.Add(u[i] + 1);
-                v.Add(v[i]);
+                x = q * x;
+                a++;
+                //b = b;
             }
-            else if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
+            else if ((p / 3 < x) && (x <= 2 * p / 3)) //TODO modification: порахувати зразу
             {
-                u.Add(2 * u[i]);
-                v.Add(2 * v[i]);
+                x = x * x;
+                a = 2 * a;
+                b = 2 * b;
             }
-            else if ((2 * p / 3 < z[i]) && (z[i] <= p))
+            else if ((2 * p / 3 < x) && (x <= p))
             {
-                u.Add(u[i]);
-                v.Add(v[i] + 1);
+                x = r * x;
+                //a = a;
+                b++;
             }
 
-            z.Add(BigMath.Pow(b, u[i + 1]) * BigMath.Pow(a, v[i + 1]));
-            z[i + 1] = z[i + 1] % (p - 1);
+            x = x % (p); 
+            a = a % (p - 1);
+            b = b % (p - 1);
+        }
 
+        private static void RefreshValues_(ref BigInteger x, ref BigInteger a, ref BigInteger b,
+            BigInteger r, BigInteger q, BigInteger p)
+        {
+            int i = (int)x % 3;
+            switch (i)
+            {
+                case 0:
+                    x = x * x;
+                    a = 2 * a;
+                    b = 2 * b;
+                    break;
+                case 1:
+                    x = r * x;
+                    a++;
+                    break;
+                case 2:
+                    x = q * x;
+                    b++;
+                    break;
+                default:
+                    break;
+            }
+
+            x = x % (p);
+            a = a % (p - 1);
+            b = b % (p - 1);
         }
     }
 }

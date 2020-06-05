@@ -41,7 +41,7 @@ namespace discrete_logarithm_algorithms
                     break;
             }
 
-            Console.WriteLine(CheckResult(a, b, p, result) ? "correct" : "wrong");
+            //Console.WriteLine(CheckResult(a, b, p, result) ? "____________________correct" : "wrong");
 
             return result;
         }
@@ -57,7 +57,7 @@ namespace discrete_logarithm_algorithms
             return isSubstitutionCorrect;
         }
 
-        private Solver() //needs to be private to construct logger only in Instance
+        private Solver() //needs to be private to construct only in Instance
         {
         }
 

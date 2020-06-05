@@ -12,7 +12,7 @@ namespace discrete_logarithm_algorithms
     {
         public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
         {
-            BigInteger lastIteration = p^2;
+            BigInteger lastIteration = p*p;
 
             for (BigInteger i = 1; i <= lastIteration; i++)
             {

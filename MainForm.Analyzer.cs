@@ -64,6 +64,8 @@ namespace discrete_logarithm_algorithms
             {
                 if (m_pattern[i] == '1')
                 {
+                    Console.WriteLine((TypeOfAlgo)i);
+
                     Analyzer.Analyze((TypeOfAlgo)i, 
                         (int)numericUpDownA.Value, (int)numericUpDownB.Value, (int)numericUpDownP.Value, 
                         (int)numericNumRuns.Value);

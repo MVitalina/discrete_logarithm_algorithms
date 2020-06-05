@@ -41,16 +41,6 @@ namespace discrete_logarithm_algorithms
             }
         }
 
-        private bool IsAGood(BigInteger a) 
-        {
-            return BigMath.OrderOfMagnitude(a) == BigMath.OrderOfMagnitude(P - 1);
-        }
-
-        private bool IsPGood(BigInteger p) //needs to be prime
-        {
-            return BigMath.IsPrime(p);
-        }
-
         //TODO disable X
         //todo another thread
         //TODO Custom textBox control: coloring + validator (add yellow if computing longer than 5 sec) 

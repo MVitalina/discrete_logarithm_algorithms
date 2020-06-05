@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Security.Cryptography;
 
 namespace discrete_logarithm_algorithms
 {
-    public class BigMath //TODO refactor 
+    public static class BigMath //TODO refactor 
     {
         public static BigInteger Sqrt(BigInteger number)
         {
@@ -25,7 +26,8 @@ namespace discrete_logarithm_algorithms
         public static BigInteger Pow(BigInteger number, BigInteger power)
         {
             if (power == -1)
-                return 1 / number;
+                //return 1 / number;
+                Console.WriteLine("POWER = -1");
             if (power == 0)
                 return 1;
             BigInteger res = number;
@@ -35,14 +37,75 @@ namespace discrete_logarithm_algorithms
             return res;
         }
 
+        //extension
+        public static BigInteger Mod(this BigInteger a, BigInteger p)
+        {
+            BigInteger result = a % p;
+            if (result < 0)
+            {
+                result += p;
+            }
+
+            return result;
+        }
+
         public static int OrderOfMagnitude(BigInteger number)
         {
+            BigInteger num = number;
             int order = 0;
-            while (number / 10 != 0)
+            while (num / 10 != 0)
             {
+                num /= 10;
                 order++;
             }
             return order;
+        }
+
+        public static BigInteger Random(BigInteger maxN)
+        {
+            byte[] bytes = maxN.ToByteArray();
+            BigInteger R;
+            Random random = new Random();
+            do
+            {
+                random.NextBytes(bytes);
+                bytes[bytes.Length - 1] &= 0x7F; //force sign bit to positive
+                R = new BigInteger(bytes);
+            } while (R >= maxN);
+
+            return R;
+        }
+
+        public static BigInteger Random(int length, BigInteger maxN)
+        {
+            if (length <= 0)
+                return -1;
+
+            RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+            BigInteger R;
+            byte[] randBytes = maxN.ToByteArray();
+            do
+            {
+                rngCsp.GetBytes(randBytes);
+                randBytes[randBytes.Length - 1] &= 0x7F; //force sign bit to positive
+                R = new BigInteger(randBytes);
+            } while (R >= maxN);
+            rngCsp.Dispose();
+
+            return BigInteger.Abs(new BigInteger(randBytes));
+        }
+
+        public static BigInteger Random(int length)
+        {
+            if (length <= 0)
+                return -1;
+
+            RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+            byte[] randBytes = new byte[length];
+            rngCsp.GetBytes(randBytes);
+            rngCsp.Dispose();
+
+            return BigInteger.Abs(new BigInteger(randBytes));
         }
 
         public static bool IsPrime(BigInteger number)
@@ -115,8 +178,6 @@ namespace discrete_logarithm_algorithms
         //НСД 
         public static BigInteger GCD_Euclidean(BigInteger n1, BigInteger n2)
         {
-            //TODO refactor - don`t use 'in' vars
-
             /*
              якщо a = 0
                 поверни b
@@ -128,24 +189,59 @@ namespace discrete_logarithm_algorithms
              поверни a
              */
 
-            if (n1 == 0)
+            BigInteger a = BigInteger.Abs(n1), 
+                b = BigInteger.Abs(n2);
+
+            if (a == 0)
             {
-                return n2;
+                return b;
             }
 
-            while (n2 != 0)
+            while (b != 0)
             {
-                if (n1 > n2)
+                if (a > b)
                 {
-                    n1 = n1 - n2;
+                    a = a - b;
                 }
                 else
                 {
-                    n2 = n2 - n1;
+                    b = b - a;
                 }
             }
 
-            return n1; // +
+            return a;
+        }
+
+        public static BigInteger GCD_EuclideanExtended(BigInteger n1, BigInteger n2, ref BigInteger x, ref BigInteger y)
+        {
+
+            return -1;
+            /*BigInteger a = BigInteger.Abs(n1),
+                b = BigInteger.Abs(n2);
+
+            if (b < a)
+            {
+                var t = a;
+                a = b;
+                b = t;
+            }
+
+            if (a == 0)
+            {
+                x = 0;
+                y = 1;
+                return b;
+            }
+
+            int gcd = GCD_EuclideanExtended(b % a, a, ref x, out y);
+
+            int newY = x;
+            int newX = y - (b / a) * x;
+
+            x = newX;
+            y = newY;
+            return gcd;*/
+
         }
 
         /*public PohligHellmanAlgorithm.StructQAlX Set_q_alpha(out List< PohligHellmanAlgorithm.StructQAlX > q_al_List, BigInteger number)
