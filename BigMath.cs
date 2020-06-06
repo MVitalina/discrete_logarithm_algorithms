@@ -17,7 +17,7 @@ namespace discrete_logarithm_algorithms
             do
             {
                 t = squareRoot;
-                squareRoot = (t + (number / t)) / 2;                
+                squareRoot = (t + (number / t)) / 2;  //TODO попытка деления на 0!        
             } while (BigInteger.Abs(t - squareRoot) > 1); //TODO is right
 
             return squareRoot;

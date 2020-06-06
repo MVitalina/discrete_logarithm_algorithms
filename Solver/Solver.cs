@@ -16,10 +16,6 @@ namespace discrete_logarithm_algorithms
 
         private BigInteger PrivateSolve(TypeOfAlgo type, BigInteger a, BigInteger b, BigInteger p)
         {
-            //TODO idea:
-            //instance = switch -> class
-            //instance.solve
-
             BigInteger result = -1;
 
             switch (type)
@@ -46,6 +42,7 @@ namespace discrete_logarithm_algorithms
             return result;
         }
 
+        //TODO add button on main window
         public static bool CheckResult(BigInteger a, BigInteger b, BigInteger p, BigInteger x)
         {
             if (x < 0)

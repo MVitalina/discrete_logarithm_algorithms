@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -10,35 +11,43 @@ namespace discrete_logarithm_algorithms
     class Analyzer
     {
 
-        public static void Analyze(TypeOfAlgo _type, int _a_digits, int _b_digits, int _p_digits, int _numRuns)
+        public static List<Tuple<TypeOfAlgo, double>> Analyze(List<TypeOfAlgo> _types, int _a_digits, int _b_digits, int _p_digits, int _numRuns)
         {
-            Instance.PrivateAnalyze(_type, _a_digits, _b_digits, _p_digits, _numRuns);
+            return Instance.PrivateAnalyze(_types, _a_digits, _b_digits, _p_digits, _numRuns);
         }
 
-        private void PrivateAnalyze(TypeOfAlgo type, int a_digits, int b_digits, int p_digits, int numRuns)
+        private List<Tuple<TypeOfAlgo, double>> PrivateAnalyze(List<TypeOfAlgo> types, int a_digits, int b_digits, int p_digits, int numRuns)
         {
-            BigInteger p, a, b;
-            GenerateNumbers(a_digits, b_digits, out p, out a, out b);
+            List<Tuple<TypeOfAlgo, double>> result = new List<Tuple<TypeOfAlgo, double>>(); 
 
-            double allTimeForRuns = 0;
-            bool first = true; //bad result
-            for (int i = 0; i < numRuns; i++)
+            GenerateNumbers(p_digits, a_digits, b_digits, 
+                out BigInteger p, out BigInteger a, out BigInteger b);
+
+            for (int iType = 0; iType < types.Count; iType++)
             {
-                var watch = System.Diagnostics.Stopwatch.StartNew();
-                BigInteger _ = Solver.Solve(type, a, b, p);
-                watch.Stop();
-                Console.WriteLine(watch.Elapsed.TotalMilliseconds);
-                allTimeForRuns += first ? 0 : watch.Elapsed.TotalMilliseconds;
+                TypeOfAlgo type = types[iType];
+                double allTimeForRuns = 0;
+                bool first = true; //bad result
+                for (int iRun = 0; iRun < numRuns; iRun++)
+                {
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
+                    BigInteger _ = Solver.Solve(type, a, b, p);
+                    watch.Stop();
+                    allTimeForRuns += first ? 0 : watch.Elapsed.TotalMilliseconds;
+                    first = false;
+                }
+                double averageTime = allTimeForRuns / (numRuns - 1);
+                result.Add(new Tuple<TypeOfAlgo, double>(type, averageTime)); //+
+                Console.WriteLine($"{type}: {averageTime}");
             }
-            double averageTime = allTimeForRuns / numRuns;
-            Console.WriteLine(averageTime);
-        }
+            return result;
+        }   
 
-        private void GenerateNumbers(int a_digits, int b_digits, out BigInteger p, out BigInteger a, out BigInteger b)
-        {
+        private void GenerateNumbers(int p_digits, int a_digits, int b_digits, out BigInteger p, out BigInteger a, out BigInteger b)
+        { 
             do
             {
-                p = BigMath.Random(a_digits);
+                p = BigMath.Random(p_digits);
             }
             while (!IsPGood(p));
 

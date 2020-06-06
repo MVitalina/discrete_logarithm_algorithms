@@ -349,11 +349,21 @@
             // 
             this.numericUpDownP.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.numericUpDownP.Location = new System.Drawing.Point(300, 297);
+            this.numericUpDownP.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownP.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownP.Name = "numericUpDownP";
             this.numericUpDownP.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownP.TabIndex = 11;
             this.numericUpDownP.Value = new decimal(new int[] {
-            3,
+            1,
             0,
             0,
             0});
@@ -362,11 +372,21 @@
             // 
             this.numericUpDownB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.numericUpDownB.Location = new System.Drawing.Point(220, 297);
+            this.numericUpDownB.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownB.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownB.Name = "numericUpDownB";
             this.numericUpDownB.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownB.TabIndex = 10;
             this.numericUpDownB.Value = new decimal(new int[] {
-            3,
+            1,
             0,
             0,
             0});
@@ -375,11 +395,21 @@
             // 
             this.numericUpDownA.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.numericUpDownA.Location = new System.Drawing.Point(140, 297);
+            this.numericUpDownA.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownA.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownA.Name = "numericUpDownA";
             this.numericUpDownA.Size = new System.Drawing.Size(52, 23);
             this.numericUpDownA.TabIndex = 9;
             this.numericUpDownA.Value = new decimal(new int[] {
-            3,
+            1,
             0,
             0,
             0});
@@ -427,7 +457,22 @@
             // numericNumRuns
             // 
             this.numericNumRuns.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.numericNumRuns.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.numericNumRuns.Location = new System.Drawing.Point(140, 268);
+            this.numericNumRuns.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericNumRuns.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericNumRuns.Name = "numericNumRuns";
             this.numericNumRuns.Size = new System.Drawing.Size(52, 23);
             this.numericNumRuns.TabIndex = 4;

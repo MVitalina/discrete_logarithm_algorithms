@@ -41,7 +41,6 @@ namespace discrete_logarithm_algorithms
                     for (BigInteger i = 0; i < p; i++)
                     {
                         BigInteger temp = m * i % (p - 1);
-                        Console.WriteLine(temp);
                         if (temp == n )
                         {
                             return i;
