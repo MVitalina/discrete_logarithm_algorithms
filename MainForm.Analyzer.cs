@@ -14,6 +14,8 @@ namespace discrete_logarithm_algorithms
         delegate void resultHandler(DataTable dt);
         private event resultHandler ResultReady;
 
+        private const string AlgorithmCol = "Algorithm";
+        private const string AvarageCol = "Avarage solving time";
         readonly int PATTERN_LENGTH = TypesOfAlgoDictypesDict.Count;
         string m_pattern = "11111";
         static readonly Dictionary<TypeOfAlgo, string> TypesOfAlgoDictypesDict = new Dictionary<TypeOfAlgo, string>()
@@ -54,10 +56,22 @@ namespace discrete_logarithm_algorithms
 
         public void ChangeDataSourceOfGrid(DataTable dataTable)
         {
-            Console.WriteLine("ChangeDataSourceOfGrid");
-
             gridMain.DataSource = null;
             gridMain.DataSource = dataTable;
+            SetColumnWidth();
+        }
+
+        private void SetColumnWidth()
+        {
+            if (gridMain.Columns.Contains(AlgorithmCol))
+            {
+                gridMain.Columns[AlgorithmCol].Width = 200;
+            }
+            
+            if (gridMain.Columns.Contains(AvarageCol))
+            {
+                gridMain.Columns[AvarageCol].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
         }
 
         private void checkedListBox_MouseEnter(object sender, EventArgs e)
@@ -113,30 +127,22 @@ namespace discrete_logarithm_algorithms
             buttonAnalyze.Enabled = true;
         }
 
-        private DataTable ToDataTable<T>(List<T> items)
+        private DataTable ToDataTable(List<Tuple<TypeOfAlgo, double>> items)
         {
-            DataTable dataTable = new DataTable(typeof(T).Name);
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            DataTable dataTable = new DataTable("Results");
 
-            foreach (PropertyInfo prop in Props)
+            dataTable.Columns.Add(AlgorithmCol, typeof(string));
+            dataTable.Columns.Add(AvarageCol, typeof(double));
+
+            foreach (var item in items)
             {
-                //Setting column names as Property names
-                Type t = Type.GetType(prop.PropertyType.FullName);
-                dataTable.Columns.Add(prop.Name, t);
-            }
-            foreach (T item in items)
-            {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
+                var values = new object[dataTable.Columns.Count];
+                values[0] = TypesOfAlgoDictypesDict[item.Item1];
+                values[1] = item.Item2;
+
                 dataTable.Rows.Add(values);
             }
 
-            //put a breakpoint here and check datatable
             return dataTable;
         }
 
