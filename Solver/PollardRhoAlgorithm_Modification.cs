@@ -14,7 +14,7 @@ namespace discrete_logarithm_algorithms
         {
             BigInteger r = _a, q = _b;
             BigInteger x = 1, a = 0, b = 0;
-            BigInteger X = x, A = a, B = b;
+            BigInteger X = x, A = a, B = b; //1 замість 3х
 
             for (int iterator = 1; iterator < p; iterator++)
             {
@@ -33,7 +33,7 @@ namespace discrete_logarithm_algorithms
                         return -1;
                     }
 
-                    BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+                   // BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
                     BigInteger gcd = BigMath.GCD_EuclideanExtended(m, p - 1, out BigInteger mu, out BigInteger pu);
 
                     Console.WriteLine(gcd);
@@ -41,7 +41,7 @@ namespace discrete_logarithm_algorithms
                     //Console.WriteLine(mu);
                     BigInteger temp =  (mu * n).Mod(p - 1);
 
-                    if (d == 1)
+                    if (gcd == 1)
                     {
                         return temp; 
                     }

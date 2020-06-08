@@ -24,7 +24,6 @@ namespace discrete_logarithm_algorithms
 
                 if (x == X)
                 {
-                    //Console.WriteLine("iterator: " + iterator);
                     BigInteger m = (a - A).Mod(p - 1),  // + + 
                         n = (B - b).Mod(p - 1);
 
@@ -33,22 +32,16 @@ namespace discrete_logarithm_algorithms
                         return -1;
                     }
 
-                    BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+                   // BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
                     BigInteger gcd = BigMath.GCD_EuclideanExtended(m, p - 1, out BigInteger mu, out BigInteger pu);
 
                     Console.WriteLine(gcd);
                     //Console.WriteLine(m * mu + (p - 1) * pu);
-                    //Console.WriteLine(mu);
                     BigInteger temp =  (mu * n).Mod(p - 1);
-
-                    if (d == 1)
-                    {
-                        return temp; 
-                    }
 
                     Console.WriteLine("mu * n: " + temp);
 
-                    for (BigInteger w = 2; w <= gcd; w++) //w = 0, gcd + 1
+                    for (BigInteger w = 0; w <= gcd; w++) //w = 0, gcd + 1
                     {
                         //Console.WriteLine("RESULT");
                         BigInteger result = ((temp + w * (p - 1)) / gcd).Mod(p - 1);
@@ -57,15 +50,19 @@ namespace discrete_logarithm_algorithms
                         {
                             return result;
                         }
-                        if (w % 2 == 0) //sqrt(x^2y) = abs(x^y) = (+-)x^y
-                        {
-                            result = ((-temp + w * (p - 1)) / gcd).Mod(p - 1);
-                            Console.WriteLine(result);
-                            if (BigMath.Pow(r, result) % p == q)
-                            {
-                                return result;
-                            }
-                        }
+                        //else if (w % 2 == 0 && BigMath.Pow(-r, result).Mod(p) == q)
+                        //{
+                        //    return result;
+                        //}
+                        //if (w % 2 == 0) //sqrt(x^2y) = abs(x^y) = (+-)x^y
+                        //{
+                        //    result = ((temp + w * (p - 1)) / gcd).Mod(p - 1);
+                        //    Console.WriteLine(result);
+                        //    if (BigMath.Pow(r, result) % p == q)
+                        //    {
+                        //        return result;
+                        //    }
+                        //}
                     }
 
                     return -1;

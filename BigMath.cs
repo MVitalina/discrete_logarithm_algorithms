@@ -17,8 +17,8 @@ namespace discrete_logarithm_algorithms
             do
             {
                 t = squareRoot;
-                squareRoot = (t + (number / t)) / 2;  //TODO попытка деления на 0!        
-            } while (BigInteger.Abs(t - squareRoot) > 1); //TODO is right
+                squareRoot = (t + (number / t)) / 2;    
+            } while (BigInteger.Abs(t - squareRoot) > 1);
 
             return squareRoot;
         }
@@ -110,10 +110,6 @@ namespace discrete_logarithm_algorithms
 
         public static bool IsPrime(BigInteger number)
         {
-            if (number == 2 || number == 3)
-            {
-                return true;
-            }
             for (int iter = 0; iter < Primes.Length; iter++)
             {
                 if (number % Primes[iter] == 0)

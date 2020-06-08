@@ -37,7 +37,7 @@ namespace discrete_logarithm_algorithms
                     break;
             }
 
-            //Console.WriteLine(CheckResult(a, b, p, result) ? "____________________correct" : "wrong");
+            Console.WriteLine(CheckResult(a, b, p, result) ? "____________________correct" : "wrong");
 
             return result;
         }
