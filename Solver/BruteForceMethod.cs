@@ -14,12 +14,18 @@ namespace discrete_logarithm_algorithms
         {
             BigInteger lastIteration = p*p;
 
+            BigInteger result = a;
             for (BigInteger i = 1; i <= lastIteration; i++)
             {
-                if (BigMath.Pow(a, i) % p == b)
+                if (result % p == b)
                 {
                     return i;
                 }
+
+                result *= a;
+
+                //if (i % 100 == 0)
+                //    Console.WriteLine(i);
             }
 
             return -1;

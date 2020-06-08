@@ -17,6 +17,9 @@ namespace discrete_logarithm_algorithms
             {
                 sum += BigInteger.Pow(b, j) / (BigInteger.Pow(a, j) - 1);
                 counter++;
+
+                //if (j % 100 == 0)
+                //    Console.WriteLine(j);
             }
 
             //sum <= (sum) < sum + counter, because / is about integer division

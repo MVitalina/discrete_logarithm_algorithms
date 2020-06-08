@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace discrete_logarithm_algorithms
 {
-    class PollardRhoAlgorithm
+    class PollardRhoAlgorithm_Modification
     {   
         public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger p)
         {
@@ -24,7 +24,7 @@ namespace discrete_logarithm_algorithms
 
                 if (x == X)
                 {
-                    //Console.WriteLine("iterator: " + iterator);
+                    Console.WriteLine("iterator: " + iterator);
                     BigInteger m = (a - A).Mod(p - 1),  // + + 
                         n = (B - b).Mod(p - 1);
 
@@ -67,6 +67,15 @@ namespace discrete_logarithm_algorithms
                             }
                         }
                     }
+
+                    //for (BigInteger i = 0; i < p; i++)
+                    //{
+                    //    BigInteger temp = m * i % (p - 1); //can be modification
+                    //    if (temp == n)
+                    //    {
+                    //        return i;
+                    //    }
+                    //}
 
                     return -1;
                 }

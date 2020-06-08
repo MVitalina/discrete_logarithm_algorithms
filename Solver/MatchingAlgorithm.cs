@@ -17,7 +17,7 @@ namespace discrete_logarithm_algorithms
             BigInteger c = BigMath.Pow(a, H);
             c = c % p;
 
-            //TODO sorted needed
+            //TODO sorted needed + -> change
             Dictionary<BigInteger, BigInteger> table1 = new Dictionary<BigInteger, BigInteger>();
             for (BigInteger u = 1; u <= H; u++)
             {
@@ -36,6 +36,9 @@ namespace discrete_logarithm_algorithms
                         return (H * t1.Key - v) % (p - 1);
                     }
                 }
+
+                //if (v % 10 == 0)
+                //    Console.WriteLine(v);
             }
             return -1;
         }

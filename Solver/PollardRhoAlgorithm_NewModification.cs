@@ -8,8 +8,8 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace discrete_logarithm_algorithms
 {
-    class PollardRhoAlgorithm
-    {   
+    class PollardRhoAlgorithm_NewModification
+    {
         public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger p)
         {
             BigInteger r = _a, q = _b;
@@ -23,52 +23,39 @@ namespace discrete_logarithm_algorithms
                 RefreshValues(ref X, ref A, ref B, r, q, p);
 
                 if (x == X)
-                {
-                    //Console.WriteLine("iterator: " + iterator);
+                {                    
                     BigInteger m = (a - A).Mod(p - 1),  // + + 
                         n = (B - b).Mod(p - 1);
 
-                    if (m == 0)
+                    //BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+                    //Console.WriteLine("d: " + d);
+
+                    //BigInteger result = ((a - A) / (B - b)).Mod(p);
+                    for (BigInteger i = 0; i < p; i++)
                     {
-                        return -1;
-                    }
-
-                    BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
-                    BigInteger gcd = BigMath.GCD_EuclideanExtended(m, p - 1, out BigInteger mu, out BigInteger pu);
-
-                    Console.WriteLine(gcd);
-                    //Console.WriteLine(m * mu + (p - 1) * pu);
-                    //Console.WriteLine(mu);
-                    BigInteger temp =  (mu * n).Mod(p - 1);
-
-                    if (d == 1)
-                    {
-                        return temp; 
-                    }
-
-                    Console.WriteLine("mu * n: " + temp);
-
-                    for (BigInteger w = 2; w <= gcd; w++) //w = 0, gcd + 1
-                    {
-                        //Console.WriteLine("RESULT");
-                        BigInteger result = ((temp + w * (p - 1)) / gcd).Mod(p - 1);
-                        //Console.WriteLine(result);
-                        if (BigMath.Pow(r, result) % p == q)
+                        BigInteger temp = m * i % (p - 1);
+                        if (temp == n)
                         {
-                            return result;
+                            return i;
                         }
-                        if (w % 2 == 0) //sqrt(x^2y) = abs(x^y) = (+-)x^y
-                        {
-                            result = ((-temp + w * (p - 1)) / gcd).Mod(p - 1);
-                            Console.WriteLine(result);
-                            if (BigMath.Pow(r, result) % p == q)
-                            {
-                                return result;
-                            }
-                        }
+
+                        if (i % 100 == 0)
+                            Console.WriteLine(i);
                     }
 
                     return -1;
+
+                    //if ((BigMath.Pow(q, m) % p) != (BigMath.Pow(r, n) % p)) //just a check
+                    //{
+                    //    Console.WriteLine("(BigMath.Pow(q, m) % p) != (BigMath.Pow(r, n) % p)");
+                    //    //return -1;
+                    //}
+                    //BigInteger d = BigMath.GCD_Euclidean(m, p - 1); //+
+
+                    //for (int i = 0; i < d; i++)
+                    //{
+                    //    //if (BigMath.Pow(r, ))
+                    //}
                 }
             }
 
@@ -98,6 +85,34 @@ namespace discrete_logarithm_algorithms
             }
 
             x = x % (p); 
+            a = a % (p - 1);
+            b = b % (p - 1);
+        }
+
+        private static void RefreshValues_(ref BigInteger x, ref BigInteger a, ref BigInteger b,
+            BigInteger r, BigInteger q, BigInteger p)
+        {
+            int i = (int)x % 3;
+            switch (i)
+            {
+                case 0:
+                    x = x * x;
+                    a = 2 * a;
+                    b = 2 * b;
+                    break;
+                case 1:
+                    x = r * x;
+                    a++;
+                    break;
+                case 2:
+                    x = q * x;
+                    b++;
+                    break;
+                default:
+                    break;
+            }
+
+            x = x % (p);
             a = a % (p - 1);
             b = b % (p - 1);
         }

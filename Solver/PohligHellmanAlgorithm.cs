@@ -26,6 +26,7 @@ namespace discrete_logarithm_algorithms
                 {
                     r[q_index][j] = BigMath.Pow(a, (j * (p - 1) / q)) % p; // r +
                 }
+                //Console.WriteLine(q_index);
             }
             //3 system х
             Dictionary<BigInteger, BigInteger> q_x = new Dictionary<BigInteger, BigInteger>();
@@ -87,7 +88,9 @@ namespace discrete_logarithm_algorithms
 
                 x = x % (BigMath.Pow(q, q_alpha[q]));
                 q_x.Add(q, x); // x, q +
-                //Console.WriteLine($"x = {x}; q = {q}" );
+                               //Console.WriteLine($"x = {x}; q = {q}" );
+                //
+                //Console.WriteLine(q_index);
             }
 
             //4 solve system х by Chinese remainder Th
