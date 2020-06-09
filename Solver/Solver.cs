@@ -7,37 +7,55 @@ using System.Threading.Tasks;
 
 namespace discrete_logarithm_algorithms
 {
-    partial class Solver
+    class Solver
     {
         public static BigInteger Solve(TypeOfAlgo _type, BigInteger _a, BigInteger _b, BigInteger _p)
-        {
+        {   
             return Instance.PrivateSolve(_type, _a, _b, _p);
         }
 
         private BigInteger PrivateSolve(TypeOfAlgo type, BigInteger a, BigInteger b, BigInteger p)
         {
-            //TODO idea:
-            //instance = switch -> class
-            //instance.solve
+            BigInteger result = -1;
 
             switch (type)
             {
                 case TypeOfAlgo.BruteForce:
-                    return BruteForceMethod.Solve(a, b, p);
+                    result = BruteForceMethod.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.SimpleFormula:
-                    return SimpleFormula.Solve(a, b, p);
+                    result = SimpleFormula.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.Matching:
-                    return MatchingAlgorithm.Solve(a, b, p);
+                    result = MatchingAlgorithm.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.PohligHellman:
-                    return PohligHellmanAlgorithm.Solve(a, b, p);
+                    result = PohligHellmanAlgorithm.Solve(a, b, p);
+                    break;
                 case TypeOfAlgo.PollardRho:
-                    return PollardRhoAlgorithm.Solve(a, b, p);
+                    //result = PollardRhoAlgorithm_Modification.Solve(a, b, p);
+                    result = PollardRhoAlgorithm.Solve(a, b, p);
+                    break;
             }
 
-            return -1;
+            Console.WriteLine(CheckResult(a, b, p, result) ? "____________________correct" : "wrong");
+
+            return result;
         }
 
-        private Solver() //needs to be private to construct logger only in Instance
+        //TODO add button on main window
+        public static bool CheckResult(BigInteger a, BigInteger b, BigInteger p, BigInteger x)
+        {
+            if (x < 0)
+            {
+                return false;
+            }
+
+            bool isSubstitutionCorrect = BigMath.Pow(a, x) % p == b;
+            return isSubstitutionCorrect;
+        }
+
+        private Solver() //needs to be private to construct only in Instance
         {
         }
 
@@ -56,6 +74,23 @@ namespace discrete_logarithm_algorithms
             }
 
             internal static readonly Solver instance = new Solver(); //instantiated once when it's first referenced
+        }
+
+        //TODO needed
+        public static BigInteger MaxValue(Type type)
+        {
+            if (type == typeof(Byte))
+                return Byte.MaxValue;
+            else if (type == typeof(UInt16))
+                return UInt16.MaxValue;
+            else if (type == typeof(UInt32))
+                return UInt32.MaxValue;
+            else if (type == typeof(UInt64))
+                return UInt64.MaxValue;
+            else if (type == typeof(BigInteger))
+                return BigInteger.Parse("1" + new string('0', 100));
+            else
+                throw new ArgumentException("Invalid argument.", "type");
         }
     }
 }

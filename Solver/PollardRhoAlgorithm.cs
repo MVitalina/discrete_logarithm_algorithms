@@ -4,125 +4,93 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace discrete_logarithm_algorithms
 {
     class PollardRhoAlgorithm
-    {
-        //TODO REFACTOR!!!
-
-        private static BigInteger a;
-        private static BigInteger b;
-        private static BigInteger p;
-
-        public static BigInteger Solve(BigInteger a, BigInteger b, BigInteger p)
+    {   
+        public static BigInteger Solve(BigInteger _a, BigInteger _b, BigInteger p)
         {
-            //maybe array [?]
-            List<BigInteger> u = new List<BigInteger>();
-            List<BigInteger> v = new List<BigInteger>();
-            List<BigInteger> z = new List<BigInteger>();
-            int i = 0;
-            u.Add(0);
-            v.Add(0);
-            z.Add(1); //[0]
-            fillList(ref u, ref v, ref z, i); // [1] 
-            i++; //i = 1
-            fillList(ref u, ref v, ref z, i); // [2]
-            i++; //i = 2
-            while (true)
+            BigInteger r = _a, q = _b;
+            BigInteger x = 1, a = 0, b = 0;
+            BigInteger X = x, A = a, B = b;
+
+            for (int iterator = 1; iterator < p; iterator++)
             {
-                if (i % 2 == 0)
+                RefreshValues(ref x, ref a, ref b, r, q, p);
+                RefreshValues(ref X, ref A, ref B, r, q, p); //2i - 2
+                RefreshValues(ref X, ref A, ref B, r, q, p);
+
+                if (x == X)
                 {
-                    if (z[i] == z[i / 2])
+                    BigInteger m = (a - A).Mod(p - 1),  // + + 
+                        n = (B - b).Mod(p - 1);
+
+                    if (m == 0)
                     {
-                        //System.Diagnostics.Debug.WriteLine("result = " + Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)));
-                        if (BigInteger_SimpleMath.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) == 1)
+                        return -1;
+                    }
+
+                    BigInteger gcd = BigMath.GCD_EuclideanExtended(m, p - 1, out BigInteger mu, out BigInteger pu);
+
+                    Console.WriteLine(gcd);
+                    BigInteger temp =  (mu * n).Mod(p - 1);
+
+                    for (BigInteger w = 0; w <= gcd; w++) 
+                    {
+                        BigInteger result = ((temp + w * (p - 1)) / gcd).Mod(p - 1);
+                        if (BigMath.Pow(r, result) % p == q)
                         {
-                            BigInteger result = v[i / 2] - v[i];
-                            result = result % (p - 1);
                             return result;
                         }
+                        else if (w % 2 == 0 && BigMath.Pow(-r, result).Mod(p) == q)
+                        {
+                            return result;
+                        }
+                        //if (w % 2 == 0) //sqrt(x^2y) = abs(x^y) = (+-)x^y
+                        //{
+                        //    result = ((temp + w * (p - 1)) / gcd).Mod(p - 1);
+                        //    Console.WriteLine(result);
+                        //    if (BigMath.Pow(r, result) % p == q)
+                        //    {
+                        //        return result;
+                        //    }
+                        //}
                     }
+
+                    return -1;
                 }
-                fillList(ref u, ref v, ref z, i); 
-                i++;
-                
             }
-            
 
-
-
-            /* while (Functions.GCD_Euclidean((u[i] - u[i / 2]), (p - 1)) != 1)
-             {
-                 //i = doLoop(p, a, b, ref u, ref v, ref z, i);
-                 while (u[i] != u[i / 2])
-                 {
-                     if ((0 <= z[i]) && (z[i] <= p / 3))
-                     {
-                         u.Add(u[i] + 1);
-                         v.Add(v[i]);
-                         /*u[i + 1] = u[i] + 1;
-                         v[i + 1] = v[i];
-                     }
-                     else
-                     {
-                         if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
-                         {
-                             u.Add(2 * u[i]);
-                             v.Add(2 * v[i]);
-                             /*u[i + 1] = 2 * u[i];
-                             v[i + 1] = 2 * v[i];
-                         }
-                         else
-                         {
-                             if ((2 * p / 3 < z[i]) && (z[i] <= p))
-                             {
-                                 u.Add(u[i]);
-                                 v.Add(v[i] + 1);
-                                 /*u[i + 1] = u[i];
-                                 v[i + 1] = v[i] + 1;
-                             }
-                         }
-                     }
-                     z.Add(Functions.pow(b, u[i + 1]) * Functions.pow(a, v[i + 1]));
-                     //z[i + 1] = Functions.pow(b, u[i + 1]) * Functions.pow(a, v[i + 1]);
-                     z[i + 1] = z[i + 1] % (p - 1);
-                     System.Diagnostics.Debug.WriteLine("z = " + z[i+1]);
-                     i++;
-                 }
-             } 
-             BigInteger res = v[i / 2] - v[i];
-             res = res % (p - 1);
-             return res;*/
+            return -1;
         }
 
-        private static void fillList(ref List<BigInteger> u, ref List<BigInteger> v, ref List<BigInteger> z, int i)
+        private static void RefreshValues(ref BigInteger x, ref BigInteger a, ref BigInteger b, 
+            BigInteger r, BigInteger q, BigInteger p)
         {
-            if ((0 <= z[i]) && (z[i] <= p / 3))
+            if ((0 <= x) && (x <= p / 3))
             {
-                u.Add(u[i] + 1);
-                v.Add(v[i]);
+                x = q * x;
+                a++;
+                //b = b;
             }
-            else
+            else if ((p / 3 < x) && (x <= 2 * p / 3))
             {
-                if ((p / 3 < z[i]) && (z[i] <= 2 * p / 3))
-                {
-                    u.Add(2 * u[i]);
-                    v.Add(2 * v[i]);
-                }
-                else
-                {
-                    if ((2 * p / 3 < z[i]) && (z[i] <= p))
-                    {
-                        u.Add(u[i]);
-                        v.Add(v[i] + 1);
-                    }
-                }
+                x = x * x;
+                a = 2 * a;
+                b = 2 * b;
             }
-            //TODO - CRASH HERE
-            z.Add(BigInteger_SimpleMath.Pow(b, u[i + 1]) * BigInteger_SimpleMath.Pow(a, v[i + 1]));
-            z[i + 1] = z[i + 1] % (p - 1);
+            else if ((2 * p / 3 < x) && (x <= p))
+            {
+                x = r * x;
+                //a = a;
+                b++;
+            }
 
+            x = x % (p); 
+            a = a % (p - 1);
+            b = b % (p - 1);
         }
     }
 }
