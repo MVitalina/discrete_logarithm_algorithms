@@ -23,9 +23,6 @@ namespace discrete_logarithm_algorithms
                 }
 
                 result *= a;
-
-                //if (i % 100 == 0)
-                //    Console.WriteLine(i);
             }
 
             return -1;

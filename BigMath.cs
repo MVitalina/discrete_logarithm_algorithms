@@ -25,9 +25,8 @@ namespace discrete_logarithm_algorithms
 
         public static BigInteger Pow(BigInteger number, BigInteger power)
         {
-            if (power == -1)
-                //return 1 / number;
-                Console.WriteLine("POWER = -1");
+            if (power < 0)
+                return -1;
             if (power == 0)
                 return 1;
             BigInteger res = number;
@@ -306,9 +305,6 @@ namespace discrete_logarithm_algorithms
 
         public static BigInteger GCD_EuclideanExtended(BigInteger n1, BigInteger n2, out BigInteger x, out BigInteger y)
         {
-            //BigInteger a = BigInteger.Abs(n1),
-            //    b = BigInteger.Abs(n2);
-
             BigInteger a = n1, b = n2;
 
             if (b < a)
@@ -334,23 +330,5 @@ namespace discrete_logarithm_algorithms
             y = newY;
             return gcd;
         }
-
-        /*public PohligHellmanAlgorithm.StructQAlX Set_q_alpha(out List< PohligHellmanAlgorithm.StructQAlX > q_al_List, BigInteger number)
-        {
-            for (BigInteger q = 2; q <= number / 2; q++) // can be less? (num/2) 
-            {
-                if (number % q == 0)
-                {
-                    number /= q;
-                    if (q_al_List.Contains(st => st.q == q)) {
-                        PohligHellmanAlgorithm.StructQAlX struc = q_al_List.Find(st => st.q == q);
-                        struc.alpha++;
-                    } else {
-                        q_al_List.Add(new PohligHellmanAlgorithm.StructQAlX(q, 1));
-                    }
-                    q--;
-                }
-            }
-        }*/
     }
 }

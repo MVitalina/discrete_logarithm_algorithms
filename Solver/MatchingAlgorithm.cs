@@ -33,13 +33,9 @@ namespace discrete_logarithm_algorithms
                 {
                     if (table1[t1.Key] == table2[v])
                     {
-                        //TODO min/all values needed
                         return (H * t1.Key - v) % (p - 1);
                     }
                 }
-
-                //if (v % 10 == 0)
-                //    Console.WriteLine(v);
             }
             return -1;
         }

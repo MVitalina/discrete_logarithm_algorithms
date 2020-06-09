@@ -33,13 +33,13 @@ namespace discrete_logarithm_algorithms
                     var watch = System.Diagnostics.Stopwatch.StartNew();
                     BigInteger solved = Solver.Solve(type, a, b, p);
                     watch.Stop();
-                    //if (Solver.CheckResult(a, b, p, solved))
-                    //{
+                    if (Solver.CheckResult(a, b, p, solved))
+                    {
                         allTimeForRuns += first ? 0 : watch.Elapsed.TotalMilliseconds;
                         first = false;
-                    //}
-                    //else
-                    //    iRun--;
+                    }
+                    else
+                        iRun--;
                 }
                 double averageTime = allTimeForRuns / (numRuns - 1);
                 result.Add(new Tuple<TypeOfAlgo, double>(type, averageTime)); //+

@@ -22,12 +22,11 @@ namespace discrete_logarithm_algorithms
             for (int q_index = 0; q_index < q_alpha.Count; q_index++)
             {
                 q = q_alpha.ElementAt(q_index).Key;
-                r[q_index] = new BigInteger[(int)q]; //TODO what to do with it
+                r[q_index] = new BigInteger[(int)q]; //TODO change
                 for (int j = 0; j < q; j++)
                 {
                     r[q_index][j] = BigMath.Pow(a, (j * (p - 1) / q)) % p; // r +
                 }
-                //Console.WriteLine(q_index);
             }
             //3 system х
             Dictionary<BigInteger, BigInteger> q_x = new Dictionary<BigInteger, BigInteger>();
@@ -42,7 +41,6 @@ namespace discrete_logarithm_algorithms
                     if (al == 0)
                     {
                         temp = BigMath.Pow(b, (p - 1) / q) % p;
-                        //System.Diagnostics.Debug.WriteLine("temp = " + temp);
                         for (int j = 0; j < q; j++) 
                         {
                             if (r[q_index][j] == temp) //search in table r
@@ -64,13 +62,11 @@ namespace discrete_logarithm_algorithms
                         }
                         else
                         {
-                            temp = b * BigMath.Pow(a, -power);//a^(-x0-x1..) TODO power < 0
+                            temp = b * BigMath.Pow(a, -power);//a^(-x0-x1..)
                         }
 
-                        //temp = b * temp; //b*a
                         temp = BigMath.Pow(temp, (p - 1) / (BigMath.Pow(q, al + 1))); //(b*a)^(...)
                         temp = temp % p; //(mod p)
-                        //System.Diagnostics.Debug.WriteLine("temp = " + temp);
                         for (int j = 0; j < q; j++)
                         {
                             if (r[q_index][j] == temp) //search in table r
@@ -79,7 +75,6 @@ namespace discrete_logarithm_algorithms
                             }
                         }
                     }
-                    //x += x[al];
                 }
                 BigInteger x = xi[0];
                 for (int i = 1; i < xi.Length; i++)
@@ -89,9 +84,6 @@ namespace discrete_logarithm_algorithms
 
                 x = x % (BigMath.Pow(q, q_alpha[q]));
                 q_x.Add(q, x); // x, q +
-                               //Console.WriteLine($"x = {x}; q = {q}" );
-                //
-                //Console.WriteLine(q_index);
             }
 
             //4 solve system х by Chinese remainder Th
