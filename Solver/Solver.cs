@@ -30,10 +30,10 @@ namespace discrete_logarithm_algorithms
                     result = MatchingAlgorithm.Solve(a, b, p);
                     break;
                 case TypeOfAlgo.PohligHellman:
-                    result = PohligHellmanAlgorithm.Solve(a, b, p);
+                    result = PollardRhoAlgorithm.Solve(a, b, p);
                     break;
                 case TypeOfAlgo.PollardRho:
-                    result = PollardRhoAlgorithm.Solve(a, b, p);
+                    result = PollardRhoAlgorithm_NewModification.Solve(a, b, p);
                     break;
             }
 

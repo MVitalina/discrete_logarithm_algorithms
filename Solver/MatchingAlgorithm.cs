@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Threading;
 
 namespace discrete_logarithm_algorithms
 {

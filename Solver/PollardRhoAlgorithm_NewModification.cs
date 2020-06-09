@@ -31,7 +31,7 @@ namespace discrete_logarithm_algorithms
                     //Console.WriteLine("d: " + d);
 
                     //BigInteger result = ((a - A) / (B - b)).Mod(p);
-                    for (BigInteger i = 0; i < p; i++)
+                    for (BigInteger i = 1; i < p; i++)
                     {
                         BigInteger temp = m * i % (p - 1);
                         if (temp == n)
@@ -62,7 +62,7 @@ namespace discrete_logarithm_algorithms
             return -1;
         }
 
-        private static void RefreshValues(ref BigInteger x, ref BigInteger a, ref BigInteger b, 
+        private static void RefreshValues_(ref BigInteger x, ref BigInteger a, ref BigInteger b, 
             BigInteger r, BigInteger q, BigInteger p)
         {
             if ((0 <= x) && (x <= p / 3))
@@ -89,24 +89,31 @@ namespace discrete_logarithm_algorithms
             b = b % (p - 1);
         }
 
-        private static void RefreshValues_(ref BigInteger x, ref BigInteger a, ref BigInteger b,
+        private static void RefreshValues(ref BigInteger x, ref BigInteger a, ref BigInteger b,
             BigInteger r, BigInteger q, BigInteger p)
         {
             int i = (int)x % 3;
             switch (i)
             {
                 case 0:
-                    x = x * x;
-                    a = 2 * a;
-                    b = 2 * b;
+                    //x = x * x;
+                    //a = 2 * a;
+                    //b = 2 * b;
+                    x = r * x;
+                    b++;
                     break;
                 case 1:
-                    x = r * x;
+                    //x = r * x;
+                    //a++;
+                    x = q * x;
                     a++;
                     break;
                 case 2:
-                    x = q * x;
-                    b++;
+                    //x = q * x;
+                    //b++;
+                    x = x * x;
+                    a = 2 * a;
+                    b = 2 * b;
                     break;
                 default:
                     break;

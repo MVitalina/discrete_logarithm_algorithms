@@ -108,7 +108,7 @@ namespace discrete_logarithm_algorithms
             return BigInteger.Abs(new BigInteger(randBytes));
         }
 
-        public static bool IsPrime(BigInteger number)
+        public static bool IsPrime_new(BigInteger number)
         {
             for (int iter = 0; iter < Primes.Length; iter++)
             {
@@ -229,7 +229,7 @@ namespace discrete_logarithm_algorithms
 9931, 9941, 9949, 9967, 9973
         };
 
-        public static bool IsPrime_Modification1(BigInteger number)
+        public static bool IsPrime(BigInteger number)
         {
             if (number == 2 || number == 3)
             {

@@ -22,24 +22,24 @@ namespace discrete_logarithm_algorithms
 
             for (int iType = 0; iType < types.Count; iType++)
             {
+                GenerateNumbers(p_digits, a_digits, b_digits,
+                    out BigInteger p, out BigInteger a, out BigInteger b);
+
                 TypeOfAlgo type = types[iType];
                 double allTimeForRuns = 0;
                 bool first = true; //bad result
                 for (int iRun = 0; iRun < numRuns; iRun++)
                 {
-                    GenerateNumbers(p_digits, a_digits, b_digits,
-                        out BigInteger p, out BigInteger a, out BigInteger b);
-
                     var watch = System.Diagnostics.Stopwatch.StartNew();
                     BigInteger solved = Solver.Solve(type, a, b, p);
                     watch.Stop();
-                    if (Solver.CheckResult(a, b, p, solved))
-                    {
+                    //if (Solver.CheckResult(a, b, p, solved))
+                    //{
                         allTimeForRuns += first ? 0 : watch.Elapsed.TotalMilliseconds;
                         first = false;
-                    }
-                    else
-                        iRun--;
+                    //}
+                    //else
+                    //    iRun--;
                 }
                 double averageTime = allTimeForRuns / (numRuns - 1);
                 result.Add(new Tuple<TypeOfAlgo, double>(type, averageTime)); //+
@@ -56,18 +56,18 @@ namespace discrete_logarithm_algorithms
             }
             while (!IsPGood(p));
 
-            //do
-            //{
+            do
+            {
                 a = BigMath.Random(a_digits);
-            //}
-            //while (!IsAGood(a, p));
+            }
+            while (!IsAGood(a, p));
 
             b = BigMath.Random(b_digits, p);
         }
 
         private bool IsAGood(BigInteger a, BigInteger p)
         {
-            return BigMath.OrderOfMagnitude(a) <= BigMath.OrderOfMagnitude(p - 1);
+            return a > 1 && BigMath.OrderOfMagnitude(a) <= BigMath.OrderOfMagnitude(p - 1);
         }
 
         private bool IsPGood(BigInteger p) //needs to be prime
